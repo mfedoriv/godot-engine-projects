@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://ovklbkc04gfr"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_01rqo"]
+[ext_resource type="PackedScene" uid="uid://4olbst4f118a" path="res://player.tscn" id="1_nehaw"]
+[ext_resource type="PackedScene" uid="uid://d1rvr5t7ykbl2" path="res://physical_obstacle.tscn" id="2_wpclb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8qiok"]
+size = Vector2(1152, 61.5)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_01rqo")
+obstacle_scene = ExtResource("2_wpclb")
+
+[node name="Player" parent="." instance=ExtResource("1_nehaw")]
+position = Vector2(180, 300)
+scale = Vector2(2, 2)
+
+[node name="ObstacleTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(576, -31.5)
+shape = SubResource("RectangleShape2D_8qiok")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(576, 678.75)
+shape = SubResource("RectangleShape2D_8qiok")
+
+[connection signal="timeout" from="ObstacleTimer" to="." method="_on_obstacle_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
