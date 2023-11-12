@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsijf7iejtoj6"]
+[gd_scene load_steps=9 format=3 uid="uid://dsijf7iejtoj6"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_7fnxw"]
 [ext_resource type="Texture2D" uid="uid://dtrk4puqwyda8" path="res://assets/player/cat_placeholder.png" id="1_iv8dd"]
+[ext_resource type="Resource" uid="uid://wy2x32mc4lvj" path="res://scenes/player/DefaultMovementData.tres" id="2_x5hag"]
 [ext_resource type="Texture2D" uid="uid://57k0gnd4bja3" path="res://assets/snowflakes/snow_particle.png" id="3_lxt3d"]
 
 [sub_resource type="Gradient" id="Gradient_5nkit"]
@@ -24,26 +25,34 @@ color_ramp = SubResource("GradientTexture1D_mcs8t")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wn4oy"]
 radius = 35.0
-height = 76.0
+height = 101.333
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(1.5, 1.5)
+collision_layer = 2
 script = ExtResource("1_7fnxw")
+movement_data = ExtResource("2_x5hag")
 
-[node name="SnowParticles" type="GPUParticles2D" parent="."]
-position = Vector2(-0.666667, 0)
+[node name="MoveParticles" type="GPUParticles2D" parent="."]
+position = Vector2(0.270573, -28.6848)
 process_material = SubResource("ParticleProcessMaterial_e50b4")
 texture = ExtResource("3_lxt3d")
 lifetime = 0.5
 fixed_fps = 0
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.937241, -28.6848)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_iv8dd")
 offset = Vector2(-98.8724, -220.152)
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -14)
+position = Vector2(0.666667, -50.6667)
 shape = SubResource("CapsuleShape2D_wn4oy")
 metadata/_edit_lock_ = true
+
+[node name="HazardDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4

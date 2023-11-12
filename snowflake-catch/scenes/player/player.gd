@@ -1,59 +1,105 @@
 extends CharacterBody2D
 
-const ACCELERATION = 700
-const MAX_SPEED = 400
-const FRICTION = 600
+@export var movement_data : PlayerMovementData
 
-const ROTATION_SPEED = 3
-const ROTATION_ACCELERATION = 2
-
-const JUMP_VELOCITY = 1000.0
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
+var air_jump = false
+var just_wall_jumped = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var is_fallen = false
 var snowflakes_counter = 0
 
-@onready var snow_particles = $SnowParticles
+@onready var sprite_2d = $Sprite2D
 
 signal player_fallen
 
 func _physics_process(delta):
-	# Add the gravity.
+	apply_gravity(delta)
+	handle_wall_jump()
+	handle_jump(true)
+	var input_axis = Input.get_axis("left", "right")
+	handle_moving(input_axis, delta)
+	handle_air_moving(input_axis, delta)
+	handle_rotation(input_axis, delta)
+	apply_friction(input_axis, delta)
+	apply_air_resistance(input_axis, delta)
+	update_animations(input_axis)
+	move_and_slide()
+	just_wall_jumped = false # to reset if it was wall_jump
+
+
+func apply_gravity(delta):
 	if not is_on_floor():
-		velocity.y += gravity * delta
+		velocity.y += gravity * movement_data.gravity_scale * delta
 
-	# Handle Jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor() and !is_fallen:
-		jump()
+
+func handle_jump(can_air_jump=false):
+	if is_on_floor(): air_jump = true
+	if Input.is_action_just_pressed("jump") and is_on_floor() and !movement_data.is_fallen:
+		_jump()
+	elif !is_on_floor():
+		if Input.is_action_just_released("jump"):
+			_jump_cut()
 		
-	if Input.is_action_just_released("jump"):
-		jump_cut()
+		if Input.is_action_just_pressed("jump") and can_air_jump and air_jump and !just_wall_jumped:
+			_jump(0.8)
+			air_jump = false
 
-	var direction = Input.get_axis("left", "right")
-	var rotation_force = abs(rotation * 1.7) if abs(rotation) > 0.2 else 0.3
-	if direction and !is_fallen:
-		velocity.x = move_toward(velocity.x, direction * MAX_SPEED, ACCELERATION * delta)
-		rotate(deg_to_rad(ROTATION_SPEED * direction * rotation_force))
-	elif abs(velocity.x) > 0:
-#		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
-	if !direction and !is_fallen:
-#			rotation = move_toward(rotation, 0, 0.07)
-		rotation = move_toward(rotation, 0, ROTATION_ACCELERATION * delta)
+
+func _jump(velocity_scale=1):
+	velocity.y = movement_data.jump_velocity * velocity_scale
+
+
+func _jump_cut():
+	if velocity.y < movement_data.jump_velocity / 4:
+		velocity.y = movement_data.jump_velocity / 4
+
+
+func handle_wall_jump():
+	if !is_on_wall_only(): return
+	var wall_normal = get_wall_normal()
+	if Input.is_action_just_pressed("jump"):
+		velocity.x = wall_normal.x * movement_data.max_speed
+		_jump(0.8)
+		just_wall_jumped = true
+		
+
+func handle_moving(input_axis, delta):
+	if !is_on_floor(): return
+	if input_axis and !movement_data.is_fallen:
+		velocity.x = move_toward(velocity.x, input_axis * movement_data.max_speed, movement_data.acceleration * delta)
+
+func handle_air_moving(input_axis, delta):
+	if is_on_floor(): return
+	if input_axis:
+		velocity.x = move_toward(velocity.x, input_axis * movement_data.max_speed, movement_data.air_acceleration * delta)
+
+func handle_rotation(input_axis, delta):
+	var rotation_force = abs(rotation * movement_data.rotation_scale) if abs(rotation) > 0.2 else 0.3
+	if input_axis and !movement_data.is_fallen:
+		rotate(deg_to_rad(movement_data.rotation_speed * input_axis * rotation_force))
+	if !input_axis and !movement_data.is_fallen:
+		rotation = move_toward(rotation, 0, movement_data.rotation_acceleration * delta)
 	if abs(rotation_degrees) > 90 and is_on_floor():
-		is_fallen = true
+		movement_data.is_fallen = true
 		emit_signal("player_fallen")
 
-	move_and_slide()
-	
 
-func jump():
-	velocity.y = -JUMP_VELOCITY
-	
-func jump_cut():
-	if velocity.y < -(JUMP_VELOCITY / 4):
-		velocity.y = -(JUMP_VELOCITY / 4)
+func apply_friction(input_axis, delta):
+	if !input_axis and is_on_floor():
+		velocity.x = move_toward(velocity.x, 0, movement_data.friction * delta)
+
+func apply_air_resistance(input_axis, delta):
+	if !input_axis and !is_on_floor():
+		velocity.x = move_toward(velocity.x, 0, movement_data.air_resistance * delta)
+		
+
+func update_animations(input_axis):
+	if input_axis:
+		sprite_2d.flip_h = input_axis < 0
+		# run
+#	else:
+#		# idle
+#	if not is_on_floor():
+#		# jump
 
 func catch_snowflake():
 	snowflakes_counter += 1
