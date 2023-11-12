@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://crkj1wdb3kfcp"]
+
+[ext_resource type="Texture2D" uid="uid://djvbtmlwayfwb" path="res://assets/world/outside_house.jpg" id="1_botpv"]
+[ext_resource type="Script" path="res://scenes/worlds/world_1.gd" id="1_kr4i7"]
+[ext_resource type="PackedScene" uid="uid://dsijf7iejtoj6" path="res://scenes/player/player.tscn" id="2_a01gs"]
+[ext_resource type="PackedScene" uid="uid://cbrin6vhsiq4t" path="res://scenes/items/snowflake.tscn" id="3_yesvj"]
+[ext_resource type="Theme" uid="uid://dukjwrto3xgb0" path="res://resources/fonts/font_theme.tres" id="5_mh0xj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ktst"]
+size = Vector2(1916.5, 82)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qox1p"]
+size = Vector2(42, 426)
+
+[sub_resource type="Curve2D" id="Curve2D_pufmg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1920, 0)
+}
+point_count = 2
+
+[node name="world1" type="Node2D"]
+script = ExtResource("1_kr4i7")
+snowflake_scene = ExtResource("3_yesvj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(728, 400)
+scale = Vector2(0.789937, 0.789938)
+texture = ExtResource("1_botpv")
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("2_a01gs")]
+position = Vector2(952, 968)
+
+[node name="floor" type="StaticBody2D" parent="."]
+position = Vector2(-8, 1096)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
+position = Vector2(969.75, -32)
+shape = SubResource("RectangleShape2D_1ktst")
+metadata/_edit_lock_ = true
+
+[node name="wall" type="StaticBody2D" parent="."]
+position = Vector2(-40, 680)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
+position = Vector2(24, 216)
+shape = SubResource("RectangleShape2D_qox1p")
+metadata/_edit_lock_ = true
+
+[node name="wall2" type="StaticBody2D" parent="."]
+position = Vector2(1920, 680)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall2"]
+position = Vector2(24, 216)
+shape = SubResource("RectangleShape2D_qox1p")
+metadata/_edit_lock_ = true
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="SnowflakePath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_pufmg")
+
+[node name="SnowflakeSpawnLocation" type="PathFollow2D" parent="SnowflakePath"]
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 264.0
+offset_bottom = 93.0
+theme = ExtResource("5_mh0xj")
+text = "0"
+
+[node name="FinalScoreLabel" type="Label" parent="UserInterface"]
+visible = false
+layout_mode = 0
+offset_left = 720.0
+offset_top = 440.0
+offset_right = 1255.0
+offset_bottom = 517.0
+theme = ExtResource("5_mh0xj")
+theme_type_variation = &"HeaderLarge"
+text = "Final score"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

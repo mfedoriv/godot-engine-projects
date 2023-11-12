@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://6vkcw3wcxelk"]
+
+[ext_resource type="Texture2D" uid="uid://b4lvhiwpkobun" path="res://Assets/Sprites/meteor.png" id="1_wjrl7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0h2er"]
+radius = 8.06226
+
+[node name="meteor" type="RigidBody2D" groups=["meteor"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wjrl7")
+region_enabled = true
+region_rect = Rect2(0, 0, 17, 18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0h2er")

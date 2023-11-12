@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://skvr2ufqqwil"
+path="res://.godot/imported/Object_ricochet_Medium.mp3-d4f55bcc98b7812fb02c14308d039e5d.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Sound Assets/Object_ricochet_Medium.mp3"
+dest_files=["res://.godot/imported/Object_ricochet_Medium.mp3-d4f55bcc98b7812fb02c14308d039e5d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://byxaedh4ehi4u"]
+
+[ext_resource type="Texture2D" uid="uid://fqfawclwgdaa" path="res://Assets/Sprites/gun.png" id="1_b3b5r"]
+[ext_resource type="Script" path="res://Scenes/Player/gravity_gun.gd" id="1_hg38b"]
+
+[node name="Gravity_gun" type="Node2D"]
+script = ExtResource("1_hg38b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+rotation = -1.5708
+texture = ExtResource("1_b3b5r")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(0, -9)
+polygon = PackedVector2Array(-7, -9, -2, -4, 2, -4, 7, -9, 7, -2, -7, -2)
+metadata/_edit_lock_ = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, -100)

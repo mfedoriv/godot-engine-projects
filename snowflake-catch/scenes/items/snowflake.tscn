@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbrin6vhsiq4t"]
+
+[ext_resource type="Script" path="res://scenes/items/snowflake.gd" id="1_lu564"]
+[ext_resource type="Texture2D" uid="uid://d2hihhfg64m5t" path="res://assets/snowflakes/snowflake.png" id="1_s7muj"]
+[ext_resource type="Texture2D" uid="uid://57k0gnd4bja3" path="res://assets/snowflakes/snow_particle.png" id="3_04cd3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eeekt"]
+radius = 8.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7w5gc"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_ux1n7"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4i2kk"]
+gradient = SubResource("Gradient_ux1n7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5iyrt"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 1.42
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 21.05
+initial_velocity_max = 42.1
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.05
+scale_max = 0.3
+color_ramp = SubResource("GradientTexture1D_4i2kk")
+anim_speed_max = 2.86
+
+[node name="snowflake" type="Area2D"]
+scale = Vector2(4, 4)
+script = ExtResource("1_lu564")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eeekt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0143498, 0.0143498)
+texture = ExtResource("1_s7muj")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_7w5gc")
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_5iyrt")
+texture = ExtResource("3_04cd3")
+lifetime = 2.0
+fixed_fps = 0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

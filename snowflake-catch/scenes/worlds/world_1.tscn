@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=3 uid="uid://crkj1wdb3kfcp"]
+
+[ext_resource type="Texture2D" uid="uid://djvbtmlwayfwb" path="res://assets/world/outside_house.jpg" id="1_botpv"]
+[ext_resource type="Script" path="res://scenes/worlds/world_1.gd" id="1_kr4i7"]
+[ext_resource type="PackedScene" uid="uid://dsijf7iejtoj6" path="res://scenes/player/player.tscn" id="2_a01gs"]
+[ext_resource type="PackedScene" uid="uid://cbrin6vhsiq4t" path="res://scenes/items/snowflake.tscn" id="3_yesvj"]
+[ext_resource type="Theme" uid="uid://dukjwrto3xgb0" path="res://resources/fonts/font_theme.tres" id="5_mh0xj"]
+[ext_resource type="Texture2D" uid="uid://57k0gnd4bja3" path="res://assets/snowflakes/snow_particle.png" id="6_5h8gg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ktst"]
+size = Vector2(1916.5, 82)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qox1p"]
+size = Vector2(37, 1109)
+
+[sub_resource type="Curve2D" id="Curve2D_pufmg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 272, 0, 0, 0, 0, 0, 944, -136, 0, 0, 0, 0, 1688, 0)
+}
+point_count = 3
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sde7n"]
+emission_shape = 3
+emission_box_extents = Vector3(1100, 0, 1)
+particle_flag_disable_z = true
+spread = 59.67
+gravity = Vector3(0, 58, 0)
+initial_velocity_max = 51.85
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_max = 0.3
+color = Color(0.862745, 0.862745, 0.862745, 1)
+
+[node name="world1" type="Node2D"]
+script = ExtResource("1_kr4i7")
+snowflake_scene = ExtResource("3_yesvj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(728, 400)
+scale = Vector2(0.789937, 0.789938)
+texture = ExtResource("1_botpv")
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("2_a01gs")]
+position = Vector2(952, 968)
+
+[node name="floor" type="StaticBody2D" parent="."]
+position = Vector2(-8, 1096)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
+position = Vector2(969.75, -32)
+shape = SubResource("RectangleShape2D_1ktst")
+metadata/_edit_lock_ = true
+
+[node name="wall" type="StaticBody2D" parent="."]
+position = Vector2(-40, 680)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
+position = Vector2(26.5, -125.5)
+shape = SubResource("RectangleShape2D_qox1p")
+metadata/_edit_lock_ = true
+
+[node name="wall2" type="StaticBody2D" parent="."]
+position = Vector2(1920, 680)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall2"]
+position = Vector2(24, -120)
+shape = SubResource("RectangleShape2D_qox1p")
+metadata/_edit_lock_ = true
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="SnowflakePath" type="Path2D" parent="."]
+position = Vector2(-7.99998, -64)
+scale = Vector2(1, -0.00735294)
+curve = SubResource("Curve2D_pufmg")
+
+[node name="SnowflakeSpawnLocation" type="PathFollow2D" parent="SnowflakePath"]
+position = Vector2(272, 0)
+rotation = -0.199684
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 264.0
+offset_bottom = 93.0
+theme = ExtResource("5_mh0xj")
+text = "0"
+
+[node name="FinalScoreLabel" type="Label" parent="UserInterface"]
+visible = false
+layout_mode = 0
+offset_left = 720.0
+offset_top = 440.0
+offset_right = 1255.0
+offset_bottom = 517.0
+theme = ExtResource("5_mh0xj")
+theme_type_variation = &"HeaderLarge"
+text = "Final score"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="SnowParticles" type="GPUParticles2D" parent="."]
+position = Vector2(936, -32)
+amount = 150
+process_material = SubResource("ParticleProcessMaterial_sde7n")
+texture = ExtResource("6_5h8gg")
+lifetime = 7.0
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
