@@ -103,4 +103,3 @@ func update_animations(input_axis):
 
 func catch_snowflake():
 	snowflakes_counter += 1
-

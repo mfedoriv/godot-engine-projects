@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://dsijf7iejtoj6"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_7fnxw"]
-[ext_resource type="Texture2D" uid="uid://dtrk4puqwyda8" path="res://assets/player/cat_placeholder.png" id="1_iv8dd"]
 [ext_resource type="Resource" uid="uid://wy2x32mc4lvj" path="res://scenes/player/DefaultMovementData.tres" id="2_x5hag"]
 [ext_resource type="Texture2D" uid="uid://57k0gnd4bja3" path="res://assets/snowflakes/snow_particle.png" id="3_lxt3d"]
+[ext_resource type="Texture2D" uid="uid://dnfdh3111fb81" path="res://assets/player/Snowflake-Catch.png" id="4_rej45"]
 
 [sub_resource type="Gradient" id="Gradient_5nkit"]
 colors = PackedColorArray(0.753984, 0.753984, 0.753984, 1, 1, 1, 1, 0)
@@ -24,7 +24,7 @@ scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_mcs8t")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wn4oy"]
-radius = 35.0
+radius = 28.6667
 height = 101.333
 
 [node name="Player" type="CharacterBody2D"]
@@ -42,11 +42,10 @@ fixed_fps = 0
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0.937241, -28.6848)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_iv8dd")
-offset = Vector2(-98.8724, -220.152)
-metadata/_edit_lock_ = true
+position = Vector2(-1.33333, -33.3333)
+scale = Vector2(0.244467, 0.244467)
+texture = ExtResource("4_rej45")
+offset = Vector2(7.18515, -86.8245)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.666667, -50.6667)
