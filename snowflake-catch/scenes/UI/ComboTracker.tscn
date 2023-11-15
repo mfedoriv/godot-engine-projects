@@ -1,14 +1,118 @@
-[gd_scene load_steps=8 format=3 uid="uid://336dc0v538du"]
+[gd_scene load_steps=16 format=3 uid="uid://336dc0v538du"]
 
 [ext_resource type="Script" path="res://scenes/UI/ComboTracker.gd" id="1_84hw4"]
 [ext_resource type="Texture2D" uid="uid://bs1qnekyj25xh" path="res://assets/UI/ComboTracker/ComboTracker_Under.png" id="1_w2ejx"]
 [ext_resource type="Texture2D" uid="uid://cqahqe74e4a6k" path="res://assets/UI/ComboTracker/ComboTracker_Over.png" id="2_y36q7"]
 [ext_resource type="Texture2D" uid="uid://b0g3047x6foor" path="res://assets/UI/ComboTracker/ComboTracker_Progress.png" id="3_5ampj"]
+[ext_resource type="Texture2D" uid="uid://iuyh2ykdbqbx" path="res://assets/UI/ComboTracker/Particle.png" id="5_f1bxw"]
 [ext_resource type="Theme" uid="uid://dukjwrto3xgb0" path="res://resources/fonts/font_theme.tres" id="5_l7o41"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_17gnn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1wpj5"]
+
+[sub_resource type="Gradient" id="Gradient_2n3av"]
+offsets = PackedFloat32Array(0, 0.402778, 0.680556, 1)
+colors = PackedColorArray(0.507, 0.5616, 0.78, 0.760784, 1, 1, 1, 1, 0.760833, 0.65, 1, 0.533333, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_w77tb"]
+gradient = SubResource("Gradient_2n3av")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_63djq"]
+lifetime_randomness = 0.12
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 130.0
+emission_ring_inner_radius = 100.0
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 154.67
+flatness = 0.25
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 162.97
+initial_velocity_max = 340.74
+angular_velocity_max = 122.67
+orbit_velocity_min = 0.05
+orbit_velocity_max = 0.2
+radial_accel_min = 77.04
+radial_accel_max = 97.78
+tangential_accel_min = 46.67
+tangential_accel_max = 94.82
+angle_max = 180.0
+scale_min = 0.1
+scale_max = 0.6
+color_ramp = SubResource("GradientTexture1D_w77tb")
+turbulence_enabled = true
+turbulence_noise_strength = 5.0
+anim_speed_min = 2.96
+anim_speed_max = 4.27
+
+[sub_resource type="Animation" id="Animation_nbdsg"]
+resource_name = "ComboUp"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ComboLabel:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.4, 1.4), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lofow"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ComboLabel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ComboLabel:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_hyfu3"]
+resource_name = "ComboDown"
+length = 0.5
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ComboLabel:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-24, -0.25, 0, 0, 18.5, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.35)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yu7iv"]
+_data = {
+"ComboDown": SubResource("Animation_hyfu3"),
+"ComboUp": SubResource("Animation_nbdsg"),
+"RESET": SubResource("Animation_lofow")
+}
 
 [node name="ComboTracker" type="Panel"]
 anchors_preset = 10
@@ -24,6 +128,7 @@ layout_mode = 0
 offset_right = 307.0
 offset_bottom = 304.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1wpj5")
+metadata/_edit_group_ = true
 
 [node name="ComboProgressBar" type="TextureProgressBar" parent="Panel"]
 layout_mode = 1
@@ -45,6 +150,13 @@ texture_under = ExtResource("1_w2ejx")
 texture_over = ExtResource("2_y36q7")
 texture_progress = ExtResource("3_5ampj")
 
+[node name="ComboParticles" type="GPUParticles2D" parent="Panel"]
+position = Vector2(154, 152)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_63djq")
+texture = ExtResource("5_f1bxw")
+
 [node name="ComboLabel" type="Label" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
@@ -58,11 +170,21 @@ offset_right = 46.0
 offset_bottom = 47.5
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(47.5, 47.5)
 theme = ExtResource("5_l7o41")
 text = "×1"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel"]
+libraries = {
+"": SubResource("AnimationLibrary_yu7iv")
+}
+
 [node name="FocusTimer" type="Timer" parent="."]
 wait_time = 2.5
+one_shot = true
+
+[node name="ParticlesEmittingTimer" type="Timer" parent="."]
+wait_time = 0.7
 one_shot = true
 
 [connection signal="timeout" from="FocusTimer" to="." method="_on_focus_timer_timeout"]
