@@ -26,7 +26,6 @@ func _process(delta):
 
 func _on_body_entered(body):
 	if body.name == "Player":
-		body.catch_snowflake()
 		emit_signal("snowflake_catched")
 		queue_free()
 

@@ -1,11 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://crkj1wdb3kfcp"]
+[gd_scene load_steps=13 format=3 uid="uid://crkj1wdb3kfcp"]
 
 [ext_resource type="Texture2D" uid="uid://djvbtmlwayfwb" path="res://assets/world/outside_house.jpg" id="1_botpv"]
 [ext_resource type="Script" path="res://scenes/worlds/world_1.gd" id="1_kr4i7"]
 [ext_resource type="PackedScene" uid="uid://dsijf7iejtoj6" path="res://scenes/player/player.tscn" id="2_a01gs"]
 [ext_resource type="PackedScene" uid="uid://cbrin6vhsiq4t" path="res://scenes/items/snowflake.tscn" id="3_yesvj"]
 [ext_resource type="Theme" uid="uid://dukjwrto3xgb0" path="res://resources/fonts/font_theme.tres" id="5_mh0xj"]
+[ext_resource type="Script" path="res://scenes/UI/UserInterface.gd" id="5_xo5yy"]
 [ext_resource type="Texture2D" uid="uid://57k0gnd4bja3" path="res://assets/snowflakes/snow_particle.png" id="6_5h8gg"]
+[ext_resource type="PackedScene" uid="uid://336dc0v538du" path="res://scenes/UI/ComboTracker.tscn" id="6_tduw2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ktst"]
 size = Vector2(1916.5, 82)
@@ -43,7 +45,7 @@ texture = ExtResource("1_botpv")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("2_a01gs")]
-position = Vector2(952, 968)
+position = Vector2(960, 1024)
 
 [node name="floor" type="StaticBody2D" parent="."]
 position = Vector2(-8, 1096)
@@ -90,31 +92,52 @@ rotation = -0.199684
 [node name="UserInterface" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1920.0
+offset_bottom = 1088.0
+script = ExtResource("5_xo5yy")
+metadata/_edit_lock_ = true
 
 [node name="ScoreLabel" type="Label" parent="UserInterface"]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 16.0
-offset_right = 264.0
-offset_bottom = 93.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.233
+anchor_bottom = 0.228
+offset_left = 80.0
+offset_top = 64.0
+offset_right = -23.36
+offset_bottom = -89.064
 theme = ExtResource("5_mh0xj")
 text = "0"
+metadata/_edit_lock_ = true
 
 [node name="FinalScoreLabel" type="Label" parent="UserInterface"]
 visible = false
-layout_mode = 0
-offset_left = 720.0
-offset_top = 440.0
-offset_right = 1255.0
-offset_bottom = 517.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -376.0
+offset_top = -47.5
+offset_right = 376.0
+offset_bottom = 47.5
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("5_mh0xj")
 theme_type_variation = &"HeaderLarge"
 text = "Final score"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="ComboTracker" parent="UserInterface" instance=ExtResource("6_tduw2")]
+layout_mode = 1
+offset_left = 1680.0
+offset_right = 1640.0
+offset_bottom = 0.0
+scale = Vector2(0.8, 0.8)
 
 [node name="SnowParticles" type="GPUParticles2D" parent="."]
 position = Vector2(936, -32)

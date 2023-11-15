@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfqr6lvtyf5l4"]
+
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_qm7r0"]
+[ext_resource type="Texture2D" uid="uid://dk42suvh16qi2" path="res://Assets/01-King Human/Idle (78x58).png" id="2_t1brc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nra8j"]
+radius = 8.0
+height = 32.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_qm7r0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_t1brc")
+hframes = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_nra8j")

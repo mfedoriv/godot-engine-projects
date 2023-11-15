@@ -5,7 +5,6 @@ extends CharacterBody2D
 var air_jump = false
 var just_wall_jumped = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var snowflakes_counter = 0
 
 @onready var sprite_2d = $Sprite2D
 
@@ -44,7 +43,8 @@ func handle_jump(can_air_jump=false):
 			air_jump = false
 
 
-func _jump(velocity_scale=1):
+func _jump(velocity_scale=1.0):
+#	print('Jump Velocity:', movement_data.jump_velocity, 'Velocity Scale:', velocity_scale)
 	velocity.y = movement_data.jump_velocity * velocity_scale
 
 
@@ -94,12 +94,9 @@ func apply_air_resistance(input_axis, delta):
 
 func update_animations(input_axis):
 	if input_axis:
-		sprite_2d.flip_h = input_axis < 0
+		sprite_2d.flip_h = input_axis > 0
 		# run
 #	else:
 #		# idle
 #	if not is_on_floor():
 #		# jump
-
-func catch_snowflake():
-	snowflakes_counter += 1

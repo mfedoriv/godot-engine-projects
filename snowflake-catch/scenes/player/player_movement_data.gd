@@ -9,6 +9,6 @@ extends Resource
 @export var rotation_speed = 3
 @export var rotation_acceleration = 2
 @export var rotation_scale = 1.7
-@export var jump_velocity = -1000.0
+@export var jump_velocity = -800.0
 @export var gravity_scale = 1.0
 @export var is_fallen = false

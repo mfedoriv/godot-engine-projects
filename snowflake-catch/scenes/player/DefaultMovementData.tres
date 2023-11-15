@@ -12,6 +12,6 @@ air_resistance = 200.0
 rotation_speed = 3
 rotation_acceleration = 2
 rotation_scale = 1.7
-jump_velocity = -1000.0
+jump_velocity = -800.0
 gravity_scale = 1.0
 is_fallen = false
