@@ -7,6 +7,8 @@ var just_wall_jumped = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite_2d = $Sprite2D
+@onready var pixel_sprite_2d = $PixelSprite2D
+@onready var animation_player = $AnimationPlayer
 
 signal player_fallen
 
@@ -24,6 +26,10 @@ func _physics_process(delta):
 	move_and_slide()
 	just_wall_jumped = false # to reset if it was wall_jump
 
+func start(pos):
+	rotation = 0
+	position = pos
+	movement_data.is_fallen = false
 
 func apply_gravity(delta):
 	if not is_on_floor():
@@ -79,8 +85,7 @@ func handle_rotation(input_axis, delta):
 	if !input_axis and !movement_data.is_fallen:
 		rotation = move_toward(rotation, 0, movement_data.rotation_acceleration * delta)
 	if abs(rotation_degrees) > 90 and is_on_floor():
-		movement_data.is_fallen = true
-		emit_signal("player_fallen")
+		fall()
 
 
 func apply_friction(input_axis, delta):
@@ -93,10 +98,25 @@ func apply_air_resistance(input_axis, delta):
 		
 
 func update_animations(input_axis):
-	if input_axis:
+	if movement_data.is_fallen: return
+	if input_axis and is_on_floor():
+#		print("Run Animation")
 		sprite_2d.flip_h = input_axis > 0
-		# run
+#		pixel_sprite_2d.flip_h = input_axis < 0
+#		animation_player.play("run")
+#		# run
+#	elif Input.is_action_just_pressed("jump"):
+#		print("Jump Animation")
+#		animation_player.play("jump")
 #	else:
-#		# idle
+#		print("Idle Animation")
+#		animation_player.play("idle")
 #	if not is_on_floor():
 #		# jump
+
+func fall():
+	movement_data.is_fallen = true
+	emit_signal("player_fallen")
+
+func _on_hazard_detector_area_entered(area):
+	fall()

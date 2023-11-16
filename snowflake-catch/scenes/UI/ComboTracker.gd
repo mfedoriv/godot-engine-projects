@@ -1,4 +1,4 @@
-extends Panel
+extends MarginContainer
 
 @export_range(50, 300) var part_size = 200
 @export var part_size_decreasing_value_per_combo = 18
@@ -19,8 +19,15 @@ signal combo_up
 signal combo_down
 
 func _ready():
+	start()
+
+
+func start():
 	combo_progress_bar.value = 0
+	combo = 1
 	update_combo_label()
+	animation_player.play("ComboUp")
+	particles_emitting_timer.start()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,6 +52,7 @@ func add_part():
 	if new_value >= combo_progress_bar.max_value:
 		combo += 1
 		update_combo_label()
+		combo_label.rotation = 0
 		animation_player.play("ComboUp")
 		particles_emitting_timer.start()
 	combo_progress_bar.value = int(new_value) % int(combo_progress_bar.max_value)

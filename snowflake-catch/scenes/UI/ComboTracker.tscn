@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://336dc0v538du"]
+[gd_scene load_steps=15 format=3 uid="uid://336dc0v538du"]
 
 [ext_resource type="Script" path="res://scenes/UI/ComboTracker.gd" id="1_84hw4"]
 [ext_resource type="Texture2D" uid="uid://bs1qnekyj25xh" path="res://assets/UI/ComboTracker/ComboTracker_Under.png" id="1_w2ejx"]
@@ -6,8 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://b0g3047x6foor" path="res://assets/UI/ComboTracker/ComboTracker_Progress.png" id="3_5ampj"]
 [ext_resource type="Texture2D" uid="uid://iuyh2ykdbqbx" path="res://assets/UI/ComboTracker/Particle.png" id="5_f1bxw"]
 [ext_resource type="Theme" uid="uid://dukjwrto3xgb0" path="res://resources/fonts/font_theme.tres" id="5_l7o41"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_17gnn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1wpj5"]
 
@@ -47,6 +45,22 @@ turbulence_enabled = true
 turbulence_noise_strength = 5.0
 anim_speed_min = 2.96
 anim_speed_max = 4.27
+
+[sub_resource type="Animation" id="Animation_hyfu3"]
+resource_name = "ComboDown"
+length = 0.5
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ComboLabel:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-24, -0.25, 0, 0, 18.5, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.35)
+}
 
 [sub_resource type="Animation" id="Animation_nbdsg"]
 resource_name = "ComboUp"
@@ -91,22 +105,6 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0)
 }
 
-[sub_resource type="Animation" id="Animation_hyfu3"]
-resource_name = "ComboDown"
-length = 0.5
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ComboLabel:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(-24, -0.25, 0, 0, 18.5, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.35)
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yu7iv"]
 _data = {
 "ComboDown": SubResource("Animation_hyfu3"),
@@ -114,19 +112,27 @@ _data = {
 "RESET": SubResource("Animation_lofow")
 }
 
-[node name="ComboTracker" type="Panel"]
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 1608.0
-offset_bottom = 304.0
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_17gnn")
+[node name="ComboTracker" type="MarginContainer"]
+anchors_preset = -1
+anchor_left = -0.06
+anchor_top = -0.124
+anchor_right = 0.062
+anchor_bottom = 0.123
+offset_left = 115.2
+offset_top = 133.92
+offset_right = -119.04
+offset_bottom = -132.84
+pivot_offset = Vector2(270, -266)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 96
+theme_override_constants/margin_right = 96
+theme_override_constants/margin_bottom = 128
 script = ExtResource("1_84hw4")
 
 [node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_right = 307.0
-offset_bottom = 304.0
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1wpj5")
 metadata/_edit_group_ = true
 
@@ -151,9 +157,9 @@ texture_over = ExtResource("2_y36q7")
 texture_progress = ExtResource("3_5ampj")
 
 [node name="ComboParticles" type="GPUParticles2D" parent="Panel"]
-position = Vector2(154, 152)
+position = Vector2(-3, 4)
 emitting = false
-amount = 100
+amount = 75
 process_material = SubResource("ParticleProcessMaterial_63djq")
 texture = ExtResource("5_f1bxw")
 

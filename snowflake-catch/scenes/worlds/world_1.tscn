@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://crkj1wdb3kfcp"]
+[gd_scene load_steps=16 format=3 uid="uid://crkj1wdb3kfcp"]
 
 [ext_resource type="Texture2D" uid="uid://djvbtmlwayfwb" path="res://assets/world/outside_house.jpg" id="1_botpv"]
 [ext_resource type="Script" path="res://scenes/worlds/world_1.gd" id="1_kr4i7"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scenes/UI/UserInterface.gd" id="5_xo5yy"]
 [ext_resource type="Texture2D" uid="uid://57k0gnd4bja3" path="res://assets/snowflakes/snow_particle.png" id="6_5h8gg"]
 [ext_resource type="PackedScene" uid="uid://336dc0v538du" path="res://scenes/UI/ComboTracker.tscn" id="6_tduw2"]
+[ext_resource type="PackedScene" uid="uid://dychawb2cidt4" path="res://scenes/hazards/icicle.tscn" id="9_05cfr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ktst"]
 size = Vector2(1916.5, 82)
@@ -20,6 +21,14 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 272, 0, 0, 0, 0, 0, 944, -136, 0, 0, 0, 0, 1688, 0)
 }
 point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_ht725"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 32, -168, 0, 0, 0, 0, 1904, -168)
+}
+point_count = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r2mbq"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sde7n"]
 emission_shape = 3
@@ -37,6 +46,7 @@ color = Color(0.862745, 0.862745, 0.862745, 1)
 [node name="world1" type="Node2D"]
 script = ExtResource("1_kr4i7")
 snowflake_scene = ExtResource("3_yesvj")
+icicle_scene = ExtResource("9_05cfr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(728, 400)
@@ -45,7 +55,10 @@ texture = ExtResource("1_botpv")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("2_a01gs")]
-position = Vector2(960, 1024)
+position = Vector2(672, 872)
+
+[node name="PlayerStartPosition" type="Marker2D" parent="."]
+position = Vector2(1024, 992)
 
 [node name="floor" type="StaticBody2D" parent="."]
 position = Vector2(-8, 1096)
@@ -77,9 +90,6 @@ position = Vector2(24, -120)
 shape = SubResource("RectangleShape2D_qox1p")
 metadata/_edit_lock_ = true
 
-[node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 2.0
-
 [node name="SnowflakePath" type="Path2D" parent="."]
 position = Vector2(-7.99998, -64)
 scale = Vector2(1, -0.00735294)
@@ -89,6 +99,20 @@ curve = SubResource("Curve2D_pufmg")
 position = Vector2(272, 0)
 rotation = -0.199684
 
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="IciclePath" type="Path2D" parent="."]
+position = Vector2(-7.62939e-06, -172.2)
+scale = Vector2(1, -0.025)
+curve = SubResource("Curve2D_ht725")
+
+[node name="IcicleSpawnLocation" type="PathFollow2D" parent="IciclePath"]
+position = Vector2(32, -168)
+
+[node name="IcicleSpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+
 [node name="UserInterface" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -97,33 +121,29 @@ offset_bottom = 1088.0
 script = ExtResource("5_xo5yy")
 metadata/_edit_lock_ = true
 
-[node name="ScoreLabel" type="Label" parent="UserInterface"]
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.233
-anchor_bottom = 0.228
-offset_left = 80.0
-offset_top = 64.0
-offset_right = -23.36
-offset_bottom = -89.064
-theme = ExtResource("5_mh0xj")
-text = "0"
-metadata/_edit_lock_ = true
-
-[node name="FinalScoreLabel" type="Label" parent="UserInterface"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -376.0
-offset_top = -47.5
-offset_right = 376.0
-offset_bottom = 47.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="CenterContainer" type="CenterContainer" parent="UserInterface/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/MarginContainer/CenterContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+
+[node name="FinalScoreLabel" type="Label" parent="UserInterface/MarginContainer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
 theme = ExtResource("5_mh0xj")
 theme_type_variation = &"HeaderLarge"
 text = "Final score"
@@ -132,12 +152,30 @@ vertical_alignment = 1
 autowrap_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="ComboTracker" parent="UserInterface" instance=ExtResource("6_tduw2")]
-layout_mode = 1
-offset_left = 1680.0
-offset_right = 1640.0
-offset_bottom = 0.0
-scale = Vector2(0.8, 0.8)
+[node name="HSeparator" type="HSeparator" parent="UserInterface/MarginContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_r2mbq")
+
+[node name="RestartButton" type="Button" parent="UserInterface/MarginContainer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme = ExtResource("5_mh0xj")
+text = "Restart"
+
+[node name="ScoreLabel" type="Label" parent="UserInterface/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("5_mh0xj")
+text = "0"
+metadata/_edit_lock_ = true
+
+[node name="ComboTracker" parent="UserInterface/MarginContainer" instance=ExtResource("6_tduw2")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="SnowParticles" type="GPUParticles2D" parent="."]
 position = Vector2(936, -32)
@@ -147,3 +185,5 @@ texture = ExtResource("6_5h8gg")
 lifetime = 7.0
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="IcicleSpawnTimer" to="." method="_on_icicle_spawn_timer_timeout"]
+[connection signal="pressed" from="UserInterface/MarginContainer/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

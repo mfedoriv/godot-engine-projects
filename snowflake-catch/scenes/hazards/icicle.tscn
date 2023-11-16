@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dychawb2cidt4"]
+
+[ext_resource type="Script" path="res://scenes/hazards/icicle.gd" id="1_j0ytf"]
+[ext_resource type="Texture2D" uid="uid://djojk0dywx4lu" path="res://assets/hazards/isicle.png" id="1_t5fx2"]
+[ext_resource type="PackedScene" uid="uid://d2oevim3g1yy8" path="res://scenes/hazards/hazard.tscn" id="2_7x446"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ps31s"]
+radius = 4.0
+height = 42.0
+
+[node name="Icicle" type="Node2D"]
+script = ExtResource("1_j0ytf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_t5fx2")
+
+[node name="Hazard" parent="." instance=ExtResource("2_7x446")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazard"]
+position = Vector2(0, 20)
+shape = SubResource("CapsuleShape2D_ps31s")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
