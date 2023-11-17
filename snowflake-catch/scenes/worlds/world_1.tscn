@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cbrin6vhsiq4t" path="res://scenes/items/snowflake.tscn" id="3_yesvj"]
 [ext_resource type="Theme" uid="uid://dukjwrto3xgb0" path="res://resources/fonts/font_theme.tres" id="5_mh0xj"]
 [ext_resource type="Script" path="res://scenes/UI/UserInterface.gd" id="5_xo5yy"]
-[ext_resource type="Texture2D" uid="uid://57k0gnd4bja3" path="res://assets/snowflakes/snow_particle.png" id="6_5h8gg"]
 [ext_resource type="PackedScene" uid="uid://336dc0v538du" path="res://scenes/UI/ComboTracker.tscn" id="6_tduw2"]
+[ext_resource type="Texture2D" uid="uid://iuyh2ykdbqbx" path="res://assets/UI/ComboTracker/Particle.png" id="9_1nmg6"]
 [ext_resource type="PackedScene" uid="uid://dychawb2cidt4" path="res://scenes/hazards/icicle.tscn" id="9_05cfr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ktst"]
@@ -24,19 +24,21 @@ point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_ht725"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 32, -168, 0, 0, 0, 0, 1904, -168)
+"points": PackedVector2Array(0, 0, 0, 0, 24, -6888, 0, 0, 0, 0, 960, -7040, 0, 0, 0, 0, 1904, -6888)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r2mbq"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sde7n"]
 emission_shape = 3
-emission_box_extents = Vector3(1100, 0, 1)
+emission_box_extents = Vector3(3200, 0, 1)
 particle_flag_disable_z = true
 spread = 59.67
 gravity = Vector3(0, 58, 0)
-initial_velocity_max = 51.85
+initial_velocity_max = 37.04
+angular_velocity_min = -192.0
+angular_velocity_max = 106.67
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 scale_min = 0.1
@@ -103,15 +105,16 @@ rotation = -0.199684
 wait_time = 2.0
 
 [node name="IciclePath" type="Path2D" parent="."]
-position = Vector2(-7.62939e-06, -172.2)
+position = Vector2(-8, -304)
 scale = Vector2(1, -0.025)
 curve = SubResource("Curve2D_ht725")
 
 [node name="IcicleSpawnLocation" type="PathFollow2D" parent="IciclePath"]
-position = Vector2(32, -168)
+position = Vector2(24, -6888)
+rotation = -0.160988
 
 [node name="IcicleSpawnTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 5.0
 
 [node name="UserInterface" type="Control" parent="."]
 layout_mode = 3
@@ -178,11 +181,13 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="SnowParticles" type="GPUParticles2D" parent="."]
-position = Vector2(936, -32)
+position = Vector2(920, 0)
+scale = Vector2(0.3, 0.3)
 amount = 150
 process_material = SubResource("ParticleProcessMaterial_sde7n")
-texture = ExtResource("6_5h8gg")
+texture = ExtResource("9_1nmg6")
 lifetime = 7.0
+fixed_fps = 60
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="IcicleSpawnTimer" to="." method="_on_icicle_spawn_timer_timeout"]

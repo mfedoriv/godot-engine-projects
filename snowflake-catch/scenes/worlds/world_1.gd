@@ -59,6 +59,8 @@ func _on_icicle_spawn_timer_timeout():
 	var icicle = icicle_scene.instantiate()
 	var icicle_spawn_location = get_node("IciclePath/IcicleSpawnLocation")
 	icicle_spawn_location.progress_ratio = randf()
+	icicle_spawn_location.position.y = -50
+	print('Position: ', icicle_spawn_location.position)
 	icicle.position = icicle_spawn_location.position
 	add_child(icicle)
 	

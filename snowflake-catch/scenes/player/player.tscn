@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_7fnxw"]
 [ext_resource type="Resource" uid="uid://wy2x32mc4lvj" path="res://scenes/player/DefaultMovementData.tres" id="2_x5hag"]
 [ext_resource type="Texture2D" uid="uid://57k0gnd4bja3" path="res://assets/snowflakes/snow_particle.png" id="3_lxt3d"]
-[ext_resource type="Texture2D" uid="uid://dnfdh3111fb81" path="res://assets/player/Snowflake-Catch.png" id="4_rej45"]
+[ext_resource type="Texture2D" uid="uid://bapwdgcu3dndg" path="res://assets/player/Snowflake-Catch_CAT_new2.png" id="4_4gm4i"]
 [ext_resource type="Texture2D" uid="uid://cuu43togndk2j" path="res://assets/player/Meow-Knight_Idle_cropped.png" id="5_v18yn"]
 [ext_resource type="Texture2D" uid="uid://dygtykbxoyi6o" path="res://assets/player/Meow-Knight_Run-cropped.png" id="6_m1chx"]
 [ext_resource type="Texture2D" uid="uid://x8ki4odu5akh" path="res://assets/player/Meow-Knight_Jump-cropped.png" id="7_7meo8"]
@@ -29,10 +29,6 @@ color_ramp = SubResource("GradientTexture1D_mcs8t")
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wn4oy"]
 radius = 28.6667
 height = 101.333
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6c2oe"]
-radius = 19.3333
-height = 80.0
 
 [sub_resource type="Animation" id="Animation_g4gp4"]
 length = 0.001
@@ -305,6 +301,10 @@ _data = {
 "run": SubResource("Animation_bsdxu")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6c2oe"]
+radius = 19.3333
+height = 80.0
+
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(1.5, 1.5)
 collision_layer = 2
@@ -312,17 +312,16 @@ script = ExtResource("1_7fnxw")
 movement_data = ExtResource("2_x5hag")
 
 [node name="MoveParticles" type="GPUParticles2D" parent="."]
-position = Vector2(0.270573, -28.6848)
+position = Vector2(-5.29293, -16.7541)
 process_material = SubResource("ParticleProcessMaterial_e50b4")
 texture = ExtResource("3_lxt3d")
 lifetime = 0.5
 fixed_fps = 0
-metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(7.33333, -30)
+position = Vector2(1.76982, -18.0693)
 scale = Vector2(0.244467, 0.244467)
-texture = ExtResource("4_rej45")
+texture = ExtResource("4_4gm4i")
 offset = Vector2(-28.2661, -100.459)
 flip_h = true
 
@@ -334,8 +333,10 @@ scale = Vector2(8.18106, 2.04527)
 skew = -0.724312
 texture = ExtResource("3_lxt3d")
 
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.666667, -50.6667)
+position = Vector2(-4.89684, -38.736)
 shape = SubResource("CapsuleShape2D_wn4oy")
 metadata/_edit_lock_ = true
 
@@ -346,7 +347,13 @@ scale = Vector2(6, 6)
 texture = ExtResource("5_v18yn")
 vframes = 6
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ulpgq")
+}
+
 [node name="HazardDetector" type="Area2D" parent="."]
+position = Vector2(-5.56351, 11.9307)
 collision_layer = 0
 collision_mask = 4
 
@@ -354,10 +361,5 @@ collision_mask = 4
 position = Vector2(2, -48.6667)
 shape = SubResource("CapsuleShape2D_6c2oe")
 debug_color = Color(0.6, 0.286275, 0.286275, 0.419608)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_ulpgq")
-}
 
 [connection signal="area_entered" from="HazardDetector" to="." method="_on_hazard_detector_area_entered"]
