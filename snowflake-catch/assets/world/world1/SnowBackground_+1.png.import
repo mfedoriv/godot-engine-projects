@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bapwdgcu3dndg"
-path="res://.godot/imported/Snowflake-Catch_CAT_new2.png-4520a9765042812d70927574e5ca8374.ctex"
+uid="uid://dtb8ga0cpleo5"
+path="res://.godot/imported/SnowBackground_+1.png-0e72f8ce30c6c446988bcb11a1c4211e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/Snowflake-Catch_CAT_new2.png"
-dest_files=["res://.godot/imported/Snowflake-Catch_CAT_new2.png-4520a9765042812d70927574e5ca8374.ctex"]
+source_file="res://assets/world/world1/SnowBackground_+1.png"
+dest_files=["res://.godot/imported/SnowBackground_+1.png-0e72f8ce30c6c446988bcb11a1c4211e.ctex"]
 
 [params]
 

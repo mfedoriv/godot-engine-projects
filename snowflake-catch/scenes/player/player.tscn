@@ -1,9 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://dsijf7iejtoj6"]
+[gd_scene load_steps=23 format=3 uid="uid://dsijf7iejtoj6"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_7fnxw"]
 [ext_resource type="Resource" uid="uid://wy2x32mc4lvj" path="res://scenes/player/DefaultMovementData.tres" id="2_x5hag"]
 [ext_resource type="Texture2D" uid="uid://57k0gnd4bja3" path="res://assets/snowflakes/snow_particle.png" id="3_lxt3d"]
-[ext_resource type="Texture2D" uid="uid://bapwdgcu3dndg" path="res://assets/player/Snowflake-Catch_CAT_new2.png" id="4_4gm4i"]
+[ext_resource type="Texture2D" uid="uid://uu4886jmdrq" path="res://assets/player/Cat.png" id="4_61ldr"]
 [ext_resource type="Texture2D" uid="uid://cuu43togndk2j" path="res://assets/player/Meow-Knight_Idle_cropped.png" id="5_v18yn"]
 [ext_resource type="Texture2D" uid="uid://dygtykbxoyi6o" path="res://assets/player/Meow-Knight_Run-cropped.png" id="6_m1chx"]
 [ext_resource type="Texture2D" uid="uid://x8ki4odu5akh" path="res://assets/player/Meow-Knight_Jump-cropped.png" id="7_7meo8"]
@@ -26,8 +26,76 @@ scale_min = 0.5
 scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_mcs8t")
 
+[sub_resource type="Animation" id="Animation_tnke5"]
+resource_name = "jump"
+length = 0.4
+step = 0.03
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.15, 0.33),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.244467, 0.244467), Vector2(0.244, 0.184), Vector2(0.244, 0.264), Vector2(0.244, 0.244)]
+}
+
+[sub_resource type="Animation" id="Animation_svjag"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.244467, 0.244467)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pv8b3"]
+resource_name = "hit"
+length = 0.14
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.12),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.545098, 0.290196, 0.321569, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jwwot"]
+_data = {
+"RESET": SubResource("Animation_svjag"),
+"hit": SubResource("Animation_pv8b3"),
+"jump": SubResource("Animation_tnke5")
+}
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wn4oy"]
-radius = 28.6667
+radius = 25.5635
 height = 101.333
 
 [sub_resource type="Animation" id="Animation_g4gp4"]
@@ -312,17 +380,17 @@ script = ExtResource("1_7fnxw")
 movement_data = ExtResource("2_x5hag")
 
 [node name="MoveParticles" type="GPUParticles2D" parent="."]
-position = Vector2(-5.29293, -16.7541)
+position = Vector2(-0.42606, -13.6097)
 process_material = SubResource("ParticleProcessMaterial_e50b4")
 texture = ExtResource("3_lxt3d")
 lifetime = 0.5
 fixed_fps = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.76982, -18.0693)
+position = Vector2(-5.7998, -14.189)
 scale = Vector2(0.244467, 0.244467)
-texture = ExtResource("4_4gm4i")
-offset = Vector2(-28.2661, -100.459)
+texture = ExtResource("4_61ldr")
+offset = Vector2(22.6057, -103.47)
 flip_h = true
 
 [node name="ShadowSprite2D" type="Sprite2D" parent="Sprite2D"]
@@ -334,11 +402,13 @@ skew = -0.724312
 texture = ExtResource("3_lxt3d")
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jwwot")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4.89684, -38.736)
+position = Vector2(-0.0299683, -35.5916)
 shape = SubResource("CapsuleShape2D_wn4oy")
-metadata/_edit_lock_ = true
 
 [node name="PixelSprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -353,12 +423,12 @@ libraries = {
 }
 
 [node name="HazardDetector" type="Area2D" parent="."]
-position = Vector2(-5.56351, 11.9307)
+position = Vector2(-0.666667, -30.6667)
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HazardDetector"]
-position = Vector2(2, -48.6667)
+position = Vector2(1.36331, -5.07507)
 shape = SubResource("CapsuleShape2D_6c2oe")
 debug_color = Color(0.6, 0.286275, 0.286275, 0.419608)
 

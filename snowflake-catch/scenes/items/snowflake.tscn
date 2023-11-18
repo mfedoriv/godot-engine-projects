@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cbrin6vhsiq4t"]
 
 [ext_resource type="Script" path="res://scenes/items/snowflake.gd" id="1_lu564"]
-[ext_resource type="Texture2D" uid="uid://d2hihhfg64m5t" path="res://assets/snowflakes/snowflake.png" id="1_s7muj"]
+[ext_resource type="Texture2D" uid="uid://bmpd8v11aq1lv" path="res://assets/snowflakes/Snowflakes.png" id="2_6705b"]
 [ext_resource type="Texture2D" uid="uid://57k0gnd4bja3" path="res://assets/snowflakes/snow_particle.png" id="3_04cd3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eeekt"]
@@ -40,8 +40,9 @@ script = ExtResource("1_lu564")
 shape = SubResource("CircleShape2D_eeekt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.0143498, 0.0143498)
-texture = ExtResource("1_s7muj")
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("2_6705b")
+hframes = 7
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 

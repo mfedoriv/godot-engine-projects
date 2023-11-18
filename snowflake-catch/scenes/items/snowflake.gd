@@ -4,6 +4,8 @@ extends Area2D
 @export_range(1, 1000) var frequency = 5
 @export_range(0, 1000) var amplitude = 150
 
+@onready var sprite_2d = $Sprite2D
+
 signal snowflake_catched
 
 # Called when the node enters the scene tree for the first time.
@@ -35,10 +37,11 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	
 
 func randomize_parameters():
+	sprite_2d.frame = randi() % 7
 	frequency = randf_range(3, 5)
 	amplitude = randi_range(100, 200)
 	falling_speed = randi_range(50, 130)
 	x_shift = randi_range(-70, 70)
 	rotate_angle = randf_range(-1, 1)
-	var snowflake_size = randf_range(2, 4)
+	var snowflake_size = randf_range(2.5, 4)
 	scale = Vector2(snowflake_size, snowflake_size)

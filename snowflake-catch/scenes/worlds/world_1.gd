@@ -5,11 +5,13 @@ extends Node2D
 
 @onready var player = $Player
 @onready var combo_tracker = %ComboTracker
-@onready var user_interface = $UserInterface
+@onready var user_interface = %UserInterface
+
 @onready var player_start_position = $PlayerStartPosition
 @onready var icicle_spawn_timer = $IcicleSpawnTimer
 @onready var spawn_timer = $SpawnTimer
 @onready var restart_button = %RestartButton
+@onready var parallax_background = $ParallaxBackground
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,7 +34,7 @@ func game_over():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	parallax_background.scroll_offset.x = player.position.x * delta * 40
 	
 
 func _on_spawn_timer_timeout():

@@ -9,21 +9,24 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var sprite_2d = $Sprite2D
 @onready var pixel_sprite_2d = $PixelSprite2D
 @onready var animation_player = $AnimationPlayer
+@onready var animation_player_2 = $AnimationPlayer2
 
 signal player_fallen
 
 
 func _physics_process(delta):
 	apply_gravity(delta)
+	
 	handle_wall_jump()
 	handle_jump(true)
 	var input_axis = Input.get_axis("left", "right")
 	handle_moving(input_axis, delta)
 	handle_air_moving(input_axis, delta)
+	update_animations(input_axis)
 	handle_rotation(input_axis, delta)
 	apply_friction(input_axis, delta)
 	apply_air_resistance(input_axis, delta)
-	update_animations(input_axis)
+	
 	move_and_slide()
 	just_wall_jumped = false # to reset if it was wall_jump
 
@@ -109,9 +112,17 @@ func apply_air_resistance(input_axis, delta):
 
 func update_animations(input_axis):
 	if movement_data.is_fallen: return
-	if input_axis and is_on_floor():
-#		print("Run Animation")
+	if input_axis:
 		sprite_2d.flip_h = input_axis > 0
+	if Input.is_action_just_pressed("jump") and !movement_data.is_fallen and air_jump:
+		print("Jump Animation")
+		animation_player_2.play("jump")
+	if movement_data.is_fallen:
+		print("Hit Animation")
+		animation_player_2.play("hit")
+#	if input_axis and is_on_floor():
+#		print("Run Animation")
+		
 #		pixel_sprite_2d.flip_h = input_axis < 0
 #		animation_player.play("run")
 #		# run

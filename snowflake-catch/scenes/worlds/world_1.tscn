@@ -1,17 +1,24 @@
-[gd_scene load_steps=16 format=3 uid="uid://crkj1wdb3kfcp"]
+[gd_scene load_steps=23 format=3 uid="uid://crkj1wdb3kfcp"]
 
 [ext_resource type="Texture2D" uid="uid://djvbtmlwayfwb" path="res://assets/world/outside_house.jpg" id="1_botpv"]
 [ext_resource type="Script" path="res://scenes/worlds/world_1.gd" id="1_kr4i7"]
 [ext_resource type="PackedScene" uid="uid://dsijf7iejtoj6" path="res://scenes/player/player.tscn" id="2_a01gs"]
 [ext_resource type="PackedScene" uid="uid://cbrin6vhsiq4t" path="res://scenes/items/snowflake.tscn" id="3_yesvj"]
+[ext_resource type="Texture2D" uid="uid://by6wgkfpn8tqr" path="res://assets/world/world1/SnowBackground_-4.png" id="4_r288k"]
+[ext_resource type="Texture2D" uid="uid://ce8nxnntds22q" path="res://assets/world/world1/SnowBackground_-3.png" id="5_6kv21"]
 [ext_resource type="Theme" uid="uid://dukjwrto3xgb0" path="res://resources/fonts/font_theme.tres" id="5_mh0xj"]
 [ext_resource type="Script" path="res://scenes/UI/UserInterface.gd" id="5_xo5yy"]
+[ext_resource type="Texture2D" uid="uid://b0o040gtfux4v" path="res://assets/world/world1/SnowBackground_-2.png" id="6_fdo3p"]
 [ext_resource type="PackedScene" uid="uid://336dc0v538du" path="res://scenes/UI/ComboTracker.tscn" id="6_tduw2"]
+[ext_resource type="Texture2D" uid="uid://bbx2a1h25vhjb" path="res://assets/world/world1/SnowBackground_-1.png" id="7_8i3m5"]
+[ext_resource type="Texture2D" uid="uid://b3caw5247lbxj" path="res://assets/player/Light.png" id="7_n25yh"]
+[ext_resource type="Texture2D" uid="uid://bdik53440mrcu" path="res://assets/world/world1/SnowBackground_-0.png" id="8_2j7lh"]
 [ext_resource type="Texture2D" uid="uid://iuyh2ykdbqbx" path="res://assets/UI/ComboTracker/Particle.png" id="9_1nmg6"]
 [ext_resource type="PackedScene" uid="uid://dychawb2cidt4" path="res://scenes/hazards/icicle.tscn" id="9_05cfr"]
+[ext_resource type="Texture2D" uid="uid://dtb8ga0cpleo5" path="res://assets/world/world1/SnowBackground_+1.png" id="9_ejkaa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ktst"]
-size = Vector2(1916.5, 82)
+size = Vector2(1920, 82)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qox1p"]
 size = Vector2(37, 1109)
@@ -28,8 +35,6 @@ _data = {
 }
 point_count = 3
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r2mbq"]
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sde7n"]
 emission_shape = 3
 emission_box_extents = Vector3(3200, 0, 1)
@@ -45,12 +50,66 @@ scale_min = 0.1
 scale_max = 0.3
 color = Color(0.862745, 0.862745, 0.862745, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r2mbq"]
+
 [node name="world1" type="Node2D"]
 script = ExtResource("1_kr4i7")
 snowflake_scene = ExtResource("3_yesvj")
 icicle_scene = ExtResource("9_05cfr")
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer-4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.6, 0.6)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer-4"]
+position = Vector2(992, 568)
+texture = ExtResource("4_r288k")
+
+[node name="ParallaxLayer-3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.7, 0.7)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer-3"]
+position = Vector2(992, 568)
+texture = ExtResource("5_6kv21")
+
+[node name="ParallaxLayer-2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.8, 0.8)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer-2"]
+position = Vector2(992, 568)
+texture = ExtResource("6_fdo3p")
+
+[node name="PointLight2D" type="PointLight2D" parent="ParallaxBackground/ParallaxLayer-2/Sprite2D"]
+position = Vector2(512, 112)
+color = Color(1, 0.933333, 0.188235, 0.85098)
+energy = 0.45
+shadow_enabled = true
+shadow_color = Color(0.0313726, 0, 0.180392, 0.898039)
+texture = ExtResource("7_n25yh")
+
+[node name="ParallaxLayer-1" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.9, 0.9)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer-1"]
+position = Vector2(992, 568)
+texture = ExtResource("7_8i3m5")
+
+[node name="ParallaxLayer0" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer0"]
+position = Vector2(992, 592)
+texture = ExtResource("8_2j7lh")
+
+[node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(1.1, 1.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1"]
+position = Vector2(1000, 584)
+texture = ExtResource("9_ejkaa")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(728, 400)
 scale = Vector2(0.789937, 0.789938)
 texture = ExtResource("1_botpv")
@@ -58,6 +117,20 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("2_a01gs")]
 position = Vector2(672, 872)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+visible = false
+position = Vector2(-5.33331, -144)
+anchor_mode = 0
+limit_left = 0
+limit_top = 0
+limit_right = 1920
+limit_bottom = 1080
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+rotation_smoothing_speed = 10.0
+drag_horizontal_enabled = true
 
 [node name="PlayerStartPosition" type="Marker2D" parent="."]
 position = Vector2(1024, 992)
@@ -68,12 +141,11 @@ collision_mask = 0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
-position = Vector2(969.75, -32)
+position = Vector2(968, -32)
 shape = SubResource("RectangleShape2D_1ktst")
-metadata/_edit_lock_ = true
 
 [node name="wall" type="StaticBody2D" parent="."]
-position = Vector2(-40, 680)
+position = Vector2(-48, 672)
 collision_mask = 0
 metadata/_edit_lock_ = true
 
@@ -83,7 +155,7 @@ shape = SubResource("RectangleShape2D_qox1p")
 metadata/_edit_lock_ = true
 
 [node name="wall2" type="StaticBody2D" parent="."]
-position = Vector2(1920, 680)
+position = Vector2(1920, 672)
 collision_mask = 0
 metadata/_edit_lock_ = true
 
@@ -116,7 +188,19 @@ rotation = -0.160988
 [node name="IcicleSpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="UserInterface" type="Control" parent="."]
+[node name="SnowParticles" type="GPUParticles2D" parent="."]
+position = Vector2(920, 0)
+scale = Vector2(0.3, 0.3)
+amount = 150
+process_material = SubResource("ParticleProcessMaterial_sde7n")
+texture = ExtResource("9_1nmg6")
+lifetime = 7.0
+fixed_fps = 60
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UserInterface" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
@@ -124,7 +208,7 @@ offset_bottom = 1088.0
 script = ExtResource("5_xo5yy")
 metadata/_edit_lock_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="UserInterface"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UserInterface"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -136,14 +220,14 @@ theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 64
 
-[node name="CenterContainer" type="CenterContainer" parent="UserInterface/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UserInterface/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/MarginContainer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UserInterface/MarginContainer/CenterContainer"]
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 
-[node name="FinalScoreLabel" type="Label" parent="UserInterface/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="FinalScoreLabel" type="Label" parent="CanvasLayer/UserInterface/MarginContainer/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -155,19 +239,19 @@ vertical_alignment = 1
 autowrap_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="HSeparator" type="HSeparator" parent="UserInterface/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/UserInterface/MarginContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_r2mbq")
 
-[node name="RestartButton" type="Button" parent="UserInterface/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="RestartButton" type="Button" parent="CanvasLayer/UserInterface/MarginContainer/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme = ExtResource("5_mh0xj")
 text = "Restart"
 
-[node name="ScoreLabel" type="Label" parent="UserInterface/MarginContainer"]
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/UserInterface/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
@@ -175,20 +259,11 @@ theme = ExtResource("5_mh0xj")
 text = "0"
 metadata/_edit_lock_ = true
 
-[node name="ComboTracker" parent="UserInterface/MarginContainer" instance=ExtResource("6_tduw2")]
+[node name="ComboTracker" parent="CanvasLayer/UserInterface/MarginContainer" instance=ExtResource("6_tduw2")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="SnowParticles" type="GPUParticles2D" parent="."]
-position = Vector2(920, 0)
-scale = Vector2(0.3, 0.3)
-amount = 150
-process_material = SubResource("ParticleProcessMaterial_sde7n")
-texture = ExtResource("9_1nmg6")
-lifetime = 7.0
-fixed_fps = 60
-
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="IcicleSpawnTimer" to="." method="_on_icicle_spawn_timer_timeout"]
-[connection signal="pressed" from="UserInterface/MarginContainer/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UserInterface/MarginContainer/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
