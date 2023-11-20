@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dychawb2cidt4"]
+[gd_scene load_steps=12 format=3 uid="uid://dychawb2cidt4"]
 
 [ext_resource type="Script" path="res://scenes/hazards/icicle.gd" id="1_j0ytf"]
 [ext_resource type="Texture2D" uid="uid://djojk0dywx4lu" path="res://assets/hazards/isicle.png" id="1_t5fx2"]
 [ext_resource type="PackedScene" uid="uid://d2oevim3g1yy8" path="res://scenes/hazards/hazard.tscn" id="2_7x446"]
+[ext_resource type="AudioStream" uid="uid://d22onpviowmh2" path="res://assets/sounds/sfx/glass_warning_1.ogg" id="4_rfhs0"]
+[ext_resource type="AudioStream" uid="uid://bvi10syopwoxu" path="res://assets/sounds/sfx/glass_warning_2.ogg" id="5_lt36l"]
+[ext_resource type="AudioStream" uid="uid://xg7gkt7d8cpe" path="res://assets/sounds/sfx/icicle_falling.ogg" id="6_7oe03"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ps31s"]
 radius = 3.0
@@ -81,6 +84,13 @@ _data = {
 "pre_fall": SubResource("Animation_1ucof")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ahd7w"]
+streams_count = 2
+stream_0/stream = ExtResource("4_rfhs0")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_lt36l")
+stream_1/weight = 1.0
+
 [node name="Icicle" type="Node2D"]
 script = ExtResource("1_j0ytf")
 
@@ -106,5 +116,17 @@ libraries = {
 
 [node name="Timer" type="Timer" parent="."]
 
+[node name="WarningStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ahd7w")
+volume_db = -4.707
+
+[node name="WarningSoundTimer" type="Timer" parent="WarningStreamPlayer2D"]
+one_shot = true
+
+[node name="FallStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_7oe03")
+volume_db = 2.066
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="WarningStreamPlayer2D/WarningSoundTimer" to="." method="_on_warning_sound_timer_timeout"]

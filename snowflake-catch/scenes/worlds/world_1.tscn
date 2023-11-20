@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://crkj1wdb3kfcp"]
+[gd_scene load_steps=31 format=3 uid="uid://crkj1wdb3kfcp"]
 
 [ext_resource type="Texture2D" uid="uid://djvbtmlwayfwb" path="res://assets/world/outside_house.jpg" id="1_botpv"]
 [ext_resource type="Script" path="res://scenes/worlds/world_1.gd" id="1_kr4i7"]
@@ -8,7 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://ce8nxnntds22q" path="res://assets/world/world1/SnowBackground_-3.png" id="5_6kv21"]
 [ext_resource type="Theme" uid="uid://dukjwrto3xgb0" path="res://resources/fonts/font_theme.tres" id="5_mh0xj"]
 [ext_resource type="Script" path="res://scenes/UI/UserInterface.gd" id="5_xo5yy"]
-[ext_resource type="Texture2D" uid="uid://b0o040gtfux4v" path="res://assets/world/world1/SnowBackground_-2.png" id="6_fdo3p"]
+[ext_resource type="Texture2D" uid="uid://c58eqs8emvo0u" path="res://assets/world/world1/smoke.png" id="6_1n0yt"]
+[ext_resource type="Texture2D" uid="uid://ce5ols5hgrgfc" path="res://assets/world/world1/SnowBackground_-2.png" id="6_fdo3p"]
 [ext_resource type="PackedScene" uid="uid://336dc0v538du" path="res://scenes/UI/ComboTracker.tscn" id="6_tduw2"]
 [ext_resource type="Texture2D" uid="uid://bbx2a1h25vhjb" path="res://assets/world/world1/SnowBackground_-1.png" id="7_8i3m5"]
 [ext_resource type="Texture2D" uid="uid://b3caw5247lbxj" path="res://assets/player/Light.png" id="7_n25yh"]
@@ -16,6 +17,41 @@
 [ext_resource type="Texture2D" uid="uid://iuyh2ykdbqbx" path="res://assets/UI/ComboTracker/Particle.png" id="9_1nmg6"]
 [ext_resource type="PackedScene" uid="uid://dychawb2cidt4" path="res://scenes/hazards/icicle.tscn" id="9_05cfr"]
 [ext_resource type="Texture2D" uid="uid://dtb8ga0cpleo5" path="res://assets/world/world1/SnowBackground_+1.png" id="9_ejkaa"]
+[ext_resource type="AudioStream" uid="uid://d38oevrb4a7fy" path="res://assets/sounds/music/Snowflake_Catch_Music_LOOP.ogg" id="18_gm06s"]
+[ext_resource type="AudioStream" uid="uid://x6u8p7qencha" path="res://assets/sounds/sfx/wind_loop.ogg" id="18_lf4eh"]
+
+[sub_resource type="Gradient" id="Gradient_jajaj"]
+offsets = PackedFloat32Array(0, 0.523148, 1)
+colors = PackedColorArray(0.439216, 0.439216, 0.439216, 1, 0.729412, 0.729412, 0.729412, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_e0vhw"]
+gradient = SubResource("Gradient_jajaj")
+
+[sub_resource type="Curve" id="Curve_np4xv"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7n0oq"]
+curve = SubResource("Curve_np4xv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uh3s0"]
+lifetime_randomness = 0.11
+particle_flag_disable_z = true
+direction = Vector3(5, 0, 0)
+spread = 0.0
+flatness = 1.0
+gravity = Vector3(50, -50, 0)
+initial_velocity_min = 22.22
+initial_velocity_max = 155.55
+angular_velocity_min = -128.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = -37.03
+radial_accel_max = -18.52
+tangential_accel_min = 5.93
+tangential_accel_max = 72.59
+scale_curve = SubResource("CurveTexture_7n0oq")
+color_ramp = SubResource("GradientTexture1D_e0vhw")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ktst"]
 size = Vector2(1920, 82)
@@ -60,21 +96,27 @@ icicle_scene = ExtResource("9_05cfr")
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer-4" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.6, 0.6)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer-4"]
 position = Vector2(992, 568)
 texture = ExtResource("4_r288k")
 
 [node name="ParallaxLayer-3" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.7, 0.7)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer-3"]
 position = Vector2(992, 568)
 texture = ExtResource("5_6kv21")
 
 [node name="ParallaxLayer-2" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.8, 0.8)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParallaxBackground/ParallaxLayer-2"]
+position = Vector2(1644, 506)
+scale = Vector2(0.5, 0.5)
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_uh3s0")
+texture = ExtResource("6_1n0yt")
+lifetime = 2.5
+fixed_fps = 60
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer-2"]
 position = Vector2(992, 568)
@@ -89,10 +131,9 @@ shadow_color = Color(0.0313726, 0, 0.180392, 0.898039)
 texture = ExtResource("7_n25yh")
 
 [node name="ParallaxLayer-1" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.9, 0.9)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer-1"]
-position = Vector2(992, 568)
+position = Vector2(1040.17, 568)
 texture = ExtResource("7_8i3m5")
 
 [node name="ParallaxLayer0" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -102,7 +143,6 @@ position = Vector2(992, 592)
 texture = ExtResource("8_2j7lh")
 
 [node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(1.1, 1.1)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1"]
 position = Vector2(1000, 584)
@@ -264,6 +304,21 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_gm06s")
+volume_db = -2.066
+autoplay = true
+bus = &"Music"
+
+[node name="WindPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_lf4eh")
+volume_db = -2.755
+bus = &"SFX"
+
+[node name="TimeTimer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="IcicleSpawnTimer" to="." method="_on_icicle_spawn_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/UserInterface/MarginContainer/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="timeout" from="TimeTimer" to="." method="_on_one_second_timer_timeout"]

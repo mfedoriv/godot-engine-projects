@@ -4,13 +4,23 @@ extends CharacterBody2D
 
 var air_jump = false
 var just_wall_jumped = false
+var just_air_jumped = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite_2d = $Sprite2D
-@onready var pixel_sprite_2d = $PixelSprite2D
 @onready var animation_player = $AnimationPlayer
-@onready var animation_player_2 = $AnimationPlayer2
 
+@onready var cat_sprite_2d = $CatSprite2D
+@onready var cat_animation_player = $CatAnimationPlayer
+
+const JUMP_SOUNDS = [preload("res://assets/sounds/sfx/jump_1.ogg"),
+					preload("res://assets/sounds/sfx/jump_2.ogg"),
+					preload("res://assets/sounds/sfx/jump_3.ogg"),
+					preload("res://assets/sounds/sfx/jump_4.ogg")]
+
+const FALL_SOUNDS = [preload("res://assets/sounds/sfx/meow_1.ogg"),
+					preload("res://assets/sounds/sfx/meow_2.ogg")]
+					
 signal player_fallen
 
 
@@ -53,6 +63,7 @@ func handle_jump(can_air_jump=false):
 		if Input.is_action_just_pressed("jump") and can_air_jump and air_jump and !just_wall_jumped:
 			_jump(0.8)
 			air_jump = false
+			just_air_jumped = true
 
 
 func _jump(velocity_scale=1.0):
@@ -113,13 +124,19 @@ func apply_air_resistance(input_axis, delta):
 func update_animations(input_axis):
 	if movement_data.is_fallen: return
 	if input_axis:
-		sprite_2d.flip_h = input_axis > 0
+		cat_sprite_2d.flip_h = input_axis > 0
 	if Input.is_action_just_pressed("jump") and !movement_data.is_fallen and air_jump:
 		print("Jump Animation")
-		animation_player_2.play("jump")
-	if movement_data.is_fallen:
-		print("Hit Animation")
-		animation_player_2.play("hit")
+		cat_animation_player.play("jump")
+		SfxHandler.play_random_sfx(JUMP_SOUNDS, 0.3)
+	elif !is_on_floor() and Input.is_action_just_pressed("jump") and !just_wall_jumped and just_air_jumped:
+		print("Jump Animation")
+		cat_animation_player.play("jump")
+		SfxHandler.play_random_sfx(JUMP_SOUNDS, 0.3)
+		just_air_jumped = false
+	elif !cat_animation_player.is_playing():
+		print("Idle Animation")
+		cat_animation_player.play("idle")
 #	if input_axis and is_on_floor():
 #		print("Run Animation")
 		
@@ -135,11 +152,17 @@ func update_animations(input_axis):
 #	if not is_on_floor():
 #		# jump
 
+func play_catch_animation():
+	cat_animation_player.play("catch")
 
 func fall():
-	movement_data.is_fallen = true
-	emit_signal("player_fallen")
+	if !movement_data.is_fallen:
+		movement_data.is_fallen = true
+		emit_signal("player_fallen")
+		SfxHandler.play_random_sfx(FALL_SOUNDS, 0.2)
+		cat_animation_player.play("fall")
 
 
-func _on_hazard_detector_area_entered(area):
+func _on_hazard_detector_area_entered(_sarea):
 	fall()
+	

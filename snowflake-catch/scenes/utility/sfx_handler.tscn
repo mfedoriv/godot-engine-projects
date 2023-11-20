@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://318mqk06ou5r"]
+
+[ext_resource type="Script" path="res://scripts/SFXHandler.gd" id="1_nsock"]
+
+[node name="SFXHandler" type="Node"]
+script = ExtResource("1_nsock")

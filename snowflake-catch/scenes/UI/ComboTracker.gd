@@ -12,6 +12,9 @@ extends MarginContainer
 @onready var combo_particles = $Panel/ComboParticles
 @onready var animation_player = $Panel/AnimationPlayer
 
+const COMBO_UP_SOUND = preload("res://assets/sounds/sfx/combo_up.ogg")
+const COMBO_DOWN_SOUNDS = [preload("res://assets/sounds/sfx/combo_down.ogg")]
+
 var is_focused : bool = true
 var combo = 1
 
@@ -39,6 +42,7 @@ func _process(delta):
 		combo -= 1
 		update_combo_label()
 		animation_player.play("ComboDown")
+		SfxHandler.play_random_sfx(COMBO_DOWN_SOUNDS, 0.5, Vector2(1, 1))
 	if not is_focused:
 #		print('Progress Bar Value:', combo_progress_bar.value)
 #		print('Progress Bar Decreasing step:', decrease_speed * delta)
@@ -54,6 +58,7 @@ func add_part():
 		update_combo_label()
 		combo_label.rotation = 0
 		animation_player.play("ComboUp")
+		SfxHandler.play_sfx(COMBO_UP_SOUND, 0.5)
 		particles_emitting_timer.start()
 	combo_progress_bar.value = int(new_value) % int(combo_progress_bar.max_value)
 	is_focused = true
