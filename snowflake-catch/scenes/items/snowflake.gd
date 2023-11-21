@@ -8,14 +8,16 @@ extends Area2D
 
 signal snowflake_catched
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	randomize_parameters()
-
 var falling_speed = 100
 var x_shift = 100
 var rotate_angle = 1
 var time = 0
+var screen_width = ProjectSettings.get_setting("display/window/size/viewport_width")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	randomize_parameters()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -23,6 +25,8 @@ func _process(delta):
 	time += delta
 	position.y += falling_speed * delta
 	var sine_movement = sin(time * frequency) * amplitude
+	if abs(screen_width - position.x) < 50 or position.x < 50:
+		x_shift = -x_shift
 	position.x = position.x + (sine_movement + x_shift) * delta
 
 

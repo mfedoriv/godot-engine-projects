@@ -280,6 +280,7 @@ skew = -0.724312
 texture = ExtResource("3_lxt3d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.0299683, -35.5916)
 shape = SubResource("CapsuleShape2D_wn4oy")
 
@@ -289,6 +290,7 @@ libraries = {
 }
 
 [node name="HazardDetector" type="Area2D" parent="."]
+visible = false
 position = Vector2(-0.666667, -30.6667)
 collision_layer = 0
 collision_mask = 4
