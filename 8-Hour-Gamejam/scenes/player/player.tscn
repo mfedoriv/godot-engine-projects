@@ -9,9 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://heyn0y6ikkj4" path="res://assets/stormhead/eye_attack.png" id="7_ot606"]
 [ext_resource type="Texture2D" uid="uid://c82cdpax0hrw7" path="res://assets/effects/light.png" id="8_bbn3h"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_44anx"]
-radius = 4.0
-height = 14.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_mkcb6"]
+radius = 5.0
 
 [sub_resource type="Animation" id="Animation_g1mef"]
 length = 0.001
@@ -352,6 +351,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r50yt"]
+radius = 11.0454
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -362,7 +362,7 @@ script = ExtResource("1_qal7h")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 rotation = -1.5708
-shape = SubResource("CapsuleShape2D_44anx")
+shape = SubResource("CircleShape2D_mkcb6")
 
 [node name="PlayerSprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -35)
@@ -398,6 +398,6 @@ texture_scale = 0.5
 
 [node name="EnemyAttractArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAttractArea"]
+[node name="EnemyAttractCollisionShape2D" type="CollisionShape2D" parent="EnemyAttractArea"]
 shape = SubResource("CircleShape2D_r50yt")
-debug_color = Color(0.976471, 0.6, 0.231373, 0.419608)
+debug_color = Color(0.976471, 0.6, 0.231373, 0.137255)

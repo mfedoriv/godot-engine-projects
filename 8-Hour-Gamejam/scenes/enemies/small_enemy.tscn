@@ -1,16 +1,144 @@
-[gd_scene load_steps=7 format=3 uid="uid://ba4rahnwfmip8"]
+[gd_scene load_steps=11 format=3 uid="uid://ba4rahnwfmip8"]
 
 [ext_resource type="Texture2D" uid="uid://bngskcvbhipaf" path="res://assets/enemies/small_monster/small monster_idle.png" id="1_2rwiw"]
 [ext_resource type="Script" path="res://scenes/enemies/small_enemy.gd" id="1_kn2f6"]
-[ext_resource type="Script" path="res://scripts/states/EnemyStateMachine.gd" id="3_02bbo"]
-[ext_resource type="Script" path="res://scripts/states/EnemyIdle.gd" id="4_cy07u"]
+[ext_resource type="Texture2D" uid="uid://c82cdpax0hrw7" path="res://assets/effects/light.png" id="3_0en33"]
+[ext_resource type="Texture2D" uid="uid://dylaq3t2g215v" path="res://assets/enemies/small_monster/small monster_run.png" id="3_bpe35"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l5yhq"]
 radius = 3.0
 height = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_awtpt"]
-radius = 54.0093
+radius = 59.0
+
+[sub_resource type="Animation" id="Animation_i334c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_2rwiw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_5foop"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_2rwiw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_hcua3"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_bpe35")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lgjew"]
+_data = {
+"RESET": SubResource("Animation_i334c"),
+"idle": SubResource("Animation_5foop"),
+"run": SubResource("Animation_hcua3")
+}
 
 [node name="SmallEnemy" type="CharacterBody2D"]
 collision_layer = 8
@@ -22,11 +150,17 @@ script = ExtResource("1_kn2f6")
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_l5yhq")
 
+[node name="PlayerDetectArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectArea"]
+shape = SubResource("CircleShape2D_awtpt")
+debug_color = Color(0, 0.87451, 0.666667, 0.101961)
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -4)
 scale = Vector2(1, 1.13671)
 texture = ExtResource("1_2rwiw")
-offset = Vector2(27, -12.3162)
+offset = Vector2(27, -12)
 vframes = 6
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -35,19 +169,27 @@ path_desired_distance = 30.0
 [node name="FollowPathTimer" type="Timer" parent="."]
 wait_time = 0.1
 
-[node name="PlayerDetectArea" type="Area2D" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lgjew")
+}
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectArea"]
-shape = SubResource("CircleShape2D_awtpt")
+[node name="Light" type="Node2D" parent="."]
+visible = false
+position = Vector2(-1, -20)
+metadata/_edit_group_ = true
 
-[node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_02bbo")
-initial_state = NodePath("EnemyIdle")
+[node name="LightCastingShadows" type="PointLight2D" parent="Light"]
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("3_0en33")
+texture_scale = 0.2
 
-[node name="EnemyIdle" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("enemy")]
-script = ExtResource("4_cy07u")
-enemy = NodePath("../..")
+[node name="LightLightingWalls" type="PointLight2D" parent="Light"]
+energy = 0.5
+texture = ExtResource("3_0en33")
+texture_scale = 0.2
 
-[connection signal="timeout" from="FollowPathTimer" to="." method="_on_update_path_timer_timeout"]
 [connection signal="area_entered" from="PlayerDetectArea" to="." method="_on_player_detect_area_area_entered"]
 [connection signal="area_exited" from="PlayerDetectArea" to="." method="_on_player_detect_area_area_exited"]
+[connection signal="timeout" from="FollowPathTimer" to="." method="_on_update_path_timer_timeout"]
