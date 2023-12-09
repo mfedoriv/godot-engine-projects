@@ -1,18 +1,41 @@
-[gd_scene load_steps=3 format=3 uid="uid://du13amb6u17uf"]
+[gd_scene load_steps=5 format=3 uid="uid://du13amb6u17uf"]
 
 [ext_resource type="Script" path="res://Scenes/Worlds/world.gd" id="1_11xwj"]
 [ext_resource type="PackedScene" uid="uid://qe8okhoggdbp" path="res://Scenes/Player/player.tscn" id="2_yygdr"]
+[ext_resource type="PackedScene" uid="uid://dpi4wiq8ylkix" path="res://Scenes/Collectables/diamond.tscn" id="3_u5fbg"]
+[ext_resource type="Script" path="res://Scenes/UI/HUD.gd" id="4_mgnaj"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_11xwj")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(0, 24, 32, 24, 32, 336, 128, 336, 128, 312, 192, 312, 256, 280, 280, 280, 280, 336, 336, 336, 336, 280, 384, 280, 424, 240, 472, 240, 472, 192, 512, 192, 512, 240, 576, 240, 608, 224, 608, 24, 640, 24, 640, 360, 0, 360)
+polygon = PackedVector2Array(0, 24, 32, 24, 32, 336, 128, 336, 192, 336, 192, 312, 261, 246, 280, 280, 280, 336, 336, 336, 336, 280, 384, 280, 424, 240, 472, 240, 472, 192, 512, 192, 512, 240, 576, 240, 608, 240, 767.874, 240, 768, 160, 832, 160, 831.113, 240, 1064, 240, 1072, 24, 1088, 24, 1096, 360, 0, 360)
 
 [node name="Polygon2D" type="Polygon2D" parent="StaticBody2D/CollisionPolygon2D"]
 color = Color(0, 0, 0, 1)
 
 [node name="Player" parent="." instance=ExtResource("2_yygdr")]
 position = Vector2(104, 304)
+
+[node name="Diamonds" type="Node" parent="."]
+
+[node name="Diamond2" parent="Diamonds" instance=ExtResource("3_u5fbg")]
+position = Vector2(360, 272)
+
+[node name="Diamond" parent="Diamonds" instance=ExtResource("3_u5fbg")]
+position = Vector2(152, 320)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("4_mgnaj")
+
+[node name="DiamondsScore" type="Label" parent="HUD"]
+offset_left = 40.0
+offset_top = 24.0
+offset_right = 184.0
+offset_bottom = 47.0
+text = "Score: 0"

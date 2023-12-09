@@ -168,8 +168,6 @@ radius = 8.0
 height = 24.0
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 13
 floor_stop_on_slope = false
 script = ExtResource("1_4ukei")
 
@@ -180,10 +178,9 @@ texture = ExtResource("1_apwgp")
 hframes = 11
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -16)
+position = Vector2(7, -15)
 sprite_frames = SubResource("SpriteFrames_ha85e")
 animation = &"idle"
-offset = Vector2(8.12, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -12)

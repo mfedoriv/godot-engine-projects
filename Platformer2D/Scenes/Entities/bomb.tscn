@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cekk5mypdckw6"]
+
+[ext_resource type="Texture2D" uid="uid://5dpo353tl576" path="res://Assets/09-Bomb/Bomb Off.png" id="1_ysq0s"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0y1o5"]
+bounce = 0.3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lnpa0"]
+radius = 6.0
+
+[node name="Bomb" type="RigidBody2D"]
+position = Vector2(241, 213)
+physics_material_override = SubResource("PhysicsMaterial_0y1o5")
+can_sleep = false
+freeze_mode = 1
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ysq0s")
+offset = Vector2(0, -4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lnpa0")
