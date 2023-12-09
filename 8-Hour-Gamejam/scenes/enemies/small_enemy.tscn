@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://ba4rahnwfmip8"]
+
+[ext_resource type="Texture2D" uid="uid://bngskcvbhipaf" path="res://assets/enemies/small_monster/small monster_idle.png" id="1_2rwiw"]
+[ext_resource type="Script" path="res://scenes/enemies/small_enemy.gd" id="1_kn2f6"]
+[ext_resource type="Script" path="res://scripts/states/EnemyStateMachine.gd" id="3_02bbo"]
+[ext_resource type="Script" path="res://scripts/states/EnemyIdle.gd" id="4_cy07u"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l5yhq"]
+radius = 3.0
+height = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_awtpt"]
+radius = 54.0093
+
+[node name="SmallEnemy" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 7
+motion_mode = 1
+script = ExtResource("1_kn2f6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_l5yhq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(1, 1.13671)
+texture = ExtResource("1_2rwiw")
+offset = Vector2(27, -12.3162)
+vframes = 6
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 30.0
+
+[node name="FollowPathTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="PlayerDetectArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectArea"]
+shape = SubResource("CircleShape2D_awtpt")
+
+[node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_02bbo")
+initial_state = NodePath("EnemyIdle")
+
+[node name="EnemyIdle" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_cy07u")
+enemy = NodePath("../..")
+
+[connection signal="timeout" from="FollowPathTimer" to="." method="_on_update_path_timer_timeout"]
+[connection signal="area_entered" from="PlayerDetectArea" to="." method="_on_player_detect_area_area_entered"]
+[connection signal="area_exited" from="PlayerDetectArea" to="." method="_on_player_detect_area_area_exited"]
