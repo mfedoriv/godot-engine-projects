@@ -3,11 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://b4lvhiwpkobun" path="res://Assets/Sprites/meteor.png" id="1_wjrl7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0h2er"]
-radius = 8.06226
+radius = 26.0192
 
 [node name="meteor" type="RigidBody2D" groups=["meteor"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
 texture = ExtResource("1_wjrl7")
 region_enabled = true
 region_rect = Rect2(0, 0, 17, 18)

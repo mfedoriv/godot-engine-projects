@@ -43,13 +43,16 @@ const JUMP_VELOCITY = -400.0
 @onready var ap = $AnimationPlayer
 @onready var sprite = $Sprite2D
 @onready var gravity_gun = $Gravity_gun
+@onready var viewport_size = Vector2(get_tree().root.content_scale_size)
+@onready var center = viewport_size / 2 # Координаты центра окружности
+@onready var radius = viewport_size.y / 2 - 20 # Радиус окружности
+var speed = 450 # Скорость передвижения
+var acceleration = 2700 # Ускорение
+var friction = 2700 # Сопротивление
 
-var speed = 150 # Скорость передвижения
-var acceleration = 900 # Ускорение
-var friction = 900 # Сопротивление
-var radius = 158 # Радиус окружности
 
-var center = Vector2(320, 180) # Координаты центра окружности
+
+
 
 func _physics_process(delta):
     var direction = Input.get_axis("right", "left")

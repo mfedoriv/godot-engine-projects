@@ -1,18 +1,19 @@
 extends Node2D
 
-@onready var _sun = $Sun
+@onready var sun: AnimatedSprite2D = $Background/Sun
+
 @onready var earth_collision_polygon_2d: CollisionPolygon2D = $StaticBody2D/EarthCollisionPolygon2D
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    _sun.play("move")
+    sun.play("move")
     
     var viewport_size = get_tree().root.content_scale_size
     
     print(viewport_size)
-    draw_earth_collision_polygon(generate_polygon_coordinates(viewport_size.y / 2 - 5, 50, viewport_size))
+    draw_earth_collision_polygon(generate_polygon_coordinates(viewport_size.y / 2 - viewport_size.y * 0.01, 50, viewport_size))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

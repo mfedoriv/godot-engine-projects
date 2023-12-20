@@ -261,7 +261,7 @@ sprite_frames = SubResource("SpriteFrames_5ccw2")
 animation = &"move"
 
 [node name="Player" parent="." instance=ExtResource("1_rqnjn")]
-position = Vector2(832, 744)
+position = Vector2(512, 712)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -270,16 +270,16 @@ position = Vector2(832, 744)
 [node name="Meteors" type="Node2D" parent="."]
 
 [node name="meteor" parent="Meteors" instance=ExtResource("8_2naeu")]
-position = Vector2(656, 672)
+position = Vector2(680, 668)
 
 [node name="meteor2" parent="Meteors" instance=ExtResource("8_2naeu")]
-position = Vector2(696, 720)
+position = Vector2(721, 684)
 
 [node name="meteor3" parent="Meteors" instance=ExtResource("8_2naeu")]
-position = Vector2(752, 728)
+position = Vector2(753, 674)
 
 [node name="meteor4" parent="Meteors" instance=ExtResource("8_2naeu")]
-position = Vector2(680, 608)
+position = Vector2(683, 632)
 
 [node name="meteor5" parent="Meteors" instance=ExtResource("8_2naeu")]
 position = Vector2(777, 659)

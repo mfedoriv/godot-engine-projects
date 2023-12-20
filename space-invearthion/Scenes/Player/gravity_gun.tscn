@@ -7,18 +7,20 @@
 script = ExtResource("1_hg38b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -9)
+position = Vector2(0, -33)
 rotation = -1.5708
+scale = Vector2(3, 3)
 texture = ExtResource("1_b3b5r")
 metadata/_edit_lock_ = true
 
 [node name="Area2D" type="Area2D" parent="."]
 metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-position = Vector2(0, -9)
+position = Vector2(-4.76837e-07, -30)
+scale = Vector2(2.97321, 3.02463)
 polygon = PackedVector2Array(-7, -9, -2, -4, 2, -4, 7, -9, 7, -2, -7, -2)
-metadata/_edit_lock_ = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, -100)

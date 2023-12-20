@@ -2,7 +2,7 @@ extends Node2D
 
 var gravity_force = 10 # Сила притяжения грави-пушки
 var push_force = 300 # Сила отталкивания грави-пушки
-var grab_range = 100 # Диапазон действия грави-пушки
+var grab_range = 300 # Диапазон действия грави-пушки
 var grabbed_meteor = null # Метеорит, захваченный грави-пушкой
 
 @onready var raycast = $RayCast2D
