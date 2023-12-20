@@ -12,6 +12,7 @@ const PIXELS_TO_STOP = 10
 @onready var follow_path_timer = $FollowPathTimer
 @onready var animation_player = $AnimationPlayer
 @onready var light = $Light
+@onready var sprite_2d = $Sprite2D
 
 var is_following_player = false
 
@@ -20,10 +21,8 @@ func _physics_process(delta):
 	handle_moving(direction_axis, delta)
 	apply_friction(direction_axis, delta)
 	update_animations(direction_axis)
+	update_animations_direction(direction_axis)
 	move_and_slide()
-	if velocity.length() > 0:
-		pass
-		# run animation
 	
 
 func handle_moving(input_axis, delta):
@@ -36,12 +35,20 @@ func apply_friction(input_axis, delta):
 		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 		velocity.y = move_toward(velocity.y, 0, FRICTION * delta)
 
-func update_animations(direction_axis):
+func update_animations(input_axis):
 	update_light()
 	if velocity.length() > 0:
 		animation_player.play('run')
 	else:
 		animation_player.play("idle")
+
+func update_animations_direction(input_axis):
+	if input_axis.x < 0:
+		sprite_2d.flip_h = true
+		sprite_2d.position.x = -54
+	else:
+		sprite_2d.flip_h = false
+		sprite_2d.position.x = 0
 
 func update_light():
 	light.visible = is_following_player

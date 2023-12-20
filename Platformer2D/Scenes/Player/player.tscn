@@ -165,7 +165,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8875x"]
 radius = 8.0
-height = 24.0
+height = 26.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -180,11 +180,11 @@ texture = ExtResource("1_apwgp")
 hframes = 11
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -16)
+position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_ha85e")
 animation = &"idle"
 offset = Vector2(8.12, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -12)
+position = Vector2(0, -13)
 shape = SubResource("CapsuleShape2D_8875x")

@@ -1,13 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://ba4rahnwfmip8"]
+[gd_scene load_steps=13 format=3 uid="uid://ba4rahnwfmip8"]
 
 [ext_resource type="Texture2D" uid="uid://bngskcvbhipaf" path="res://assets/enemies/small_monster/small monster_idle.png" id="1_2rwiw"]
 [ext_resource type="Script" path="res://scenes/enemies/small_enemy.gd" id="1_kn2f6"]
 [ext_resource type="Texture2D" uid="uid://c82cdpax0hrw7" path="res://assets/effects/light.png" id="3_0en33"]
 [ext_resource type="Texture2D" uid="uid://dylaq3t2g215v" path="res://assets/enemies/small_monster/small monster_run.png" id="3_bpe35"]
+[ext_resource type="Texture2D" uid="uid://lgh43xr3tyqt" path="res://assets/enemies/small_monster/small_monster_attack.png" id="4_dyfsg"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l5yhq"]
-radius = 3.0
-height = 8.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_d522t"]
+radius = 3.16228
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_awtpt"]
 radius = 59.0
@@ -49,6 +49,47 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_k3e3x"]
+resource_name = "attack"
+length = 1.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_dyfsg")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [13]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 }
 
 [sub_resource type="Animation" id="Animation_5foop"]
@@ -136,28 +177,32 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lgjew"]
 _data = {
 "RESET": SubResource("Animation_i334c"),
+"attack": SubResource("Animation_k3e3x"),
 "idle": SubResource("Animation_5foop"),
 "run": SubResource("Animation_hcua3")
 }
 
 [node name="SmallEnemy" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 7
+collision_mask = 15
 motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_kn2f6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708
-shape = SubResource("CapsuleShape2D_l5yhq")
+shape = SubResource("CircleShape2D_d522t")
 
 [node name="PlayerDetectArea" type="Area2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectArea"]
 shape = SubResource("CircleShape2D_awtpt")
 debug_color = Color(0, 0.87451, 0.666667, 0.101961)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(0, -5)
 scale = Vector2(1, 1.13671)
 texture = ExtResource("1_2rwiw")
 offset = Vector2(27, -12)
@@ -180,13 +225,13 @@ position = Vector2(-1, -20)
 metadata/_edit_group_ = true
 
 [node name="LightCastingShadows" type="PointLight2D" parent="Light"]
-energy = 0.5
+energy = 0.3
 shadow_enabled = true
 texture = ExtResource("3_0en33")
 texture_scale = 0.2
 
 [node name="LightLightingWalls" type="PointLight2D" parent="Light"]
-energy = 0.5
+energy = 0.3
 texture = ExtResource("3_0en33")
 texture_scale = 0.2
 

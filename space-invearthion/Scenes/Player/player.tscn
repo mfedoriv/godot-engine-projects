@@ -182,8 +182,8 @@ hframes = 6
 vframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "idle"
-speed_scale = 3.0
 libraries = {
 "": SubResource("AnimationLibrary_noli4")
 }
+autoplay = "idle"
+speed_scale = 3.0

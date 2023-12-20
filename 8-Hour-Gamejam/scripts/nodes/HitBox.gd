@@ -1,10 +1,14 @@
-extends Node2D
+extends Area2D
+class_name HitBox
 
+@export var damage := 10
 
-
+func _init() -> void:
+	collision_layer = 8
+	collision_mask = 2 + 8
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

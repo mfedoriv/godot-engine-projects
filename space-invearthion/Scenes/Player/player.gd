@@ -52,37 +52,37 @@ var radius = 158 # Радиус окружности
 var center = Vector2(320, 180) # Координаты центра окружности
 
 func _physics_process(delta):
-	var direction = Input.get_axis("right", "left")
+    var direction = Input.get_axis("right", "left")
 
-	if direction:
-		velocity.x += sign(direction) * acceleration * delta
-	else:
-		var new_speed = max(abs(velocity.x) - friction * delta, 0)
-		velocity.x = sign(velocity.x) * new_speed
+    if direction:
+        velocity.x += sign(direction) * acceleration * delta
+    else:
+        var new_speed = max(abs(velocity.x) - friction * delta, 0)
+        velocity.x = sign(velocity.x) * new_speed
 
-	if abs(velocity.x) < 0.01: # Если скорость достаточно мала, установить ее в ноль
-		velocity.x = 0
+    if abs(velocity.x) < 0.01: # Если скорость достаточно мала, установить ее в ноль
+        velocity.x = 0
 
-	if abs(velocity.x) > speed:
-		velocity.x = sign(velocity.x) * speed
+    if abs(velocity.x) > speed:
+        velocity.x = sign(velocity.x) * speed
 
-	var angle_change = velocity.x * delta / radius
-	var current_angle = (global_position - center).angle()
-	var new_angle = current_angle + angle_change
-	global_position = center + Vector2(cos(new_angle), sin(new_angle)) * radius
+    var angle_change = velocity.x * delta / radius
+    var current_angle = (global_position - center).angle()
+    var new_angle = current_angle + angle_change
+    global_position = center + Vector2(cos(new_angle), sin(new_angle)) * radius
 
-	rotation = new_angle + PI * 1.5
-	
-	# animations
-	if direction != 0:
-		sprite.flip_h = direction == 1
-		
-	update_animations(direction)
+    rotation = new_angle + PI * 1.5
+    
+    # animations
+    if direction != 0:
+        sprite.flip_h = direction == 1
+        
+    update_animations(direction)
 
 func update_animations(direction):
-	if direction == 0:
-		ap.play("idle")
-	else:
-		ap.play("run")
-		
-	
+    if direction == 0:
+        ap.play("idle")
+    else:
+        ap.play("run")
+        
+    

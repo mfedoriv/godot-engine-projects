@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://b7mwy6luvxbkl"]
+[gd_scene load_steps=23 format=3 uid="uid://b7mwy6luvxbkl"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_qal7h"]
 [ext_resource type="Texture2D" uid="uid://ddkrl0ptb0l86" path="res://assets/stormhead/player_idle.png" id="2_gl7tn"]
 [ext_resource type="Texture2D" uid="uid://dp2cnsg3b5byq" path="res://assets/stormhead/eye_idle_closed.png" id="3_i3nyt"]
 [ext_resource type="Texture2D" uid="uid://bibm0kn6hsfi0" path="res://assets/stormhead/eye_idle.png" id="3_mpj1w"]
 [ext_resource type="Texture2D" uid="uid://1fu0daulxi3m" path="res://assets/stormhead/player_run.png" id="4_wuauq"]
+[ext_resource type="Texture2D" uid="uid://b81b7o4xcn2ee" path="res://assets/stormhead/player_attack.png" id="5_7l1p8"]
 [ext_resource type="Texture2D" uid="uid://coy1aw2dbgfdy" path="res://assets/stormhead/eye_run.png" id="6_5u73d"]
 [ext_resource type="Texture2D" uid="uid://heyn0y6ikkj4" path="res://assets/stormhead/eye_attack.png" id="7_ot606"]
 [ext_resource type="Texture2D" uid="uid://c82cdpax0hrw7" path="res://assets/effects/light.png" id="8_bbn3h"]
@@ -49,6 +50,46 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_xdggw"]
+resource_name = "attack"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_7l1p8")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerSprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerSprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 }
 
 [sub_resource type="Animation" id="Animation_oetsc"]
@@ -135,6 +176,7 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l582o"]
 _data = {
 "RESET": SubResource("Animation_g1mef"),
+"attack": SubResource("Animation_xdggw"),
 "idle": SubResource("Animation_oetsc"),
 "run": SubResource("Animation_0vxo6")
 }
@@ -221,7 +263,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_cqvp2"]
 resource_name = "eye_open_attack"
-length = 1.9
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -253,10 +295,10 @@ tracks/2/path = NodePath("EyeSprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 }
 
 [sub_resource type="Animation" id="Animation_0hdrj"]
@@ -392,6 +434,7 @@ texture = ExtResource("8_bbn3h")
 texture_scale = 0.5
 
 [node name="LightLightingWalls" type="PointLight2D" parent="."]
+scale = Vector2(0.382813, 0.382813)
 energy = 0.5
 texture = ExtResource("8_bbn3h")
 texture_scale = 0.5
