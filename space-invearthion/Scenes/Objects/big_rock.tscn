@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cha7c1cnmue4h"]
+
+[ext_resource type="Texture2D" uid="uid://c26m4p365am52" path="res://Assets/Sprites/rocks.png" id="1_hxrjx"]
+[ext_resource type="Script" path="res://Scenes/Objects/big_rock.gd" id="1_i8a6o"]
+
+[node name="BigRock" type="RigidBody2D" groups=["CanDestructObjects", "Grabbable"]]
+collision_layer = 8
+collision_mask = 15
+mass = 10.0
+max_contacts_reported = 5
+contact_monitor = true
+script = ExtResource("1_i8a6o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_hxrjx")
+hframes = 5
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-15, -30, 1, -34, 12, -29, 28, -31, 35, -17, 37, 0, 8, 33, -16, 33, -36, 10, -36, -13)
+metadata/_edit_lock_ = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

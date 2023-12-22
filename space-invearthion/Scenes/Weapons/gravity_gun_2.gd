@@ -34,24 +34,24 @@ func rotate_gravity(direction):
 func wake_up_rigid_body(direction):
     # Применение небольшой силы ко всем объектам RigidBody2D в области
     for body in gravity_area.get_overlapping_bodies():
-        if body is RigidBody2D and body.is_in_group("meteor"):
+        if body is RigidBody2D and body.is_in_group("Grabbable"):
             # Применение небольшой силы WAKEUP_FORCE
             body.apply_central_impulse(direction * WAKEUP_FORCE)
 
 
 func pull_object():
-    print('PULL')
+    #print('PULL')
     gravity_area.gravity = PULL_FORCE
 
 
 func push_object():
-    print('PUSH')
+    #print('PUSH')
     disable_grab_force()
     gravity_area.gravity = -PUSH_FORCE
 
 
 func reset_gravity():
-    print('RESET')
+    #print('RESET')
     gravity_area.gravity = 0
 
 

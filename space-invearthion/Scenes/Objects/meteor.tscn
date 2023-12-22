@@ -8,7 +8,7 @@ bounce = 0.4
 [sub_resource type="CircleShape2D" id="CircleShape2D_0h2er"]
 radius = 26.0192
 
-[node name="meteor" type="RigidBody2D" groups=["meteor"]]
+[node name="meteor" type="RigidBody2D" groups=["CanDestructObjects", "Grabbable"]]
 collision_layer = 8
 collision_mask = 15
 physics_material_override = SubResource("PhysicsMaterial_gj1mw")
