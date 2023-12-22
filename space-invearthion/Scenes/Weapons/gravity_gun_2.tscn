@@ -1,0 +1,176 @@
+[gd_scene load_steps=16 format=3 uid="uid://dkhq3l8xhfsrn"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/gravity_gun_2.gd" id="1_046h1"]
+[ext_resource type="Texture2D" uid="uid://fqfawclwgdaa" path="res://Assets/Sprites/gun.png" id="1_nl1ia"]
+[ext_resource type="Texture2D" uid="uid://byg3xlya6uloi" path="res://Assets/Sprites/gun_VFX.png" id="3_2qe00"]
+[ext_resource type="Texture2D" uid="uid://dy7621u73ykhp" path="res://Assets/Sprites/stars.png" id="4_csq5g"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_273vy"]
+absorbent = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1wvsq"]
+radius = 21.0238
+
+[sub_resource type="Animation" id="Animation_8ua0i"]
+resource_name = "pull_object"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EffectsSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EffectsSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_168wx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EffectsSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EffectsSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e471c"]
+_data = {
+"RESET": SubResource("Animation_168wx"),
+"pull_object": SubResource("Animation_8ua0i")
+}
+
+[sub_resource type="Gradient" id="Gradient_p07ex"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_12nnf"]
+gradient = SubResource("Gradient_p07ex")
+
+[sub_resource type="Curve" id="Curve_paxef"]
+max_value = 3.0
+_data = [Vector2(0, 2.01099), 0.0, 0.0, 0, 0, Vector2(1, 3), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6vu3a"]
+curve = SubResource("Curve_paxef")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6g2vh"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 50, 1)
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+flatness = 0.461
+initial_velocity_min = 101.12
+initial_velocity_max = 247.19
+angular_velocity_min = -129.44
+angular_velocity_max = 64.72
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_6vu3a")
+color_ramp = SubResource("GradientTexture1D_12nnf")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wl2bi"]
+atlas = ExtResource("4_csq5g")
+region = Rect2(9, 0, 9, 9)
+
+[node name="Gravity Gun 2" type="Node2D"]
+script = ExtResource("1_046h1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_nl1ia")
+offset = Vector2(10.6667, 0)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(24, 0)
+collision_layer = 2
+collision_mask = 8
+physics_material_override = SubResource("PhysicsMaterial_273vy")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(-24, 0)
+polygon = PackedVector2Array(24, -16, 16, 0, 24, 16, 48, 24, 32, 16, 24, 0, 32, -16, 48, -24)
+
+[node name="GravityArea" type="Area2D" parent="."]
+position = Vector2(48, 0)
+collision_layer = 2
+collision_mask = 8
+gravity_space_override = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GravityArea"]
+position = Vector2(0, -1.6)
+scale = Vector2(1, 0.96875)
+polygon = PackedVector2Array(-8, -16, -8, 18.1677, 208, 59.4581, 208, -56.1548)
+
+[node name="GrabArea" type="Area2D" parent="."]
+position = Vector2(40, 0)
+collision_layer = 2
+collision_mask = 8
+gravity_space_override = 1
+gravity_point = true
+gravity = 5000.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
+shape = SubResource("CircleShape2D_1wvsq")
+
+[node name="DisableGrabTimer" type="Timer" parent="GrabArea"]
+wait_time = 0.5
+
+[node name="EffectsSprite2D" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.603922)
+position = Vector2(49.3854, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("3_2qe00")
+offset = Vector2(13.6667, -2)
+hframes = 6
+
+[node name="EffectsAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e471c")
+}
+
+[node name="PullParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+position = Vector2(257, -3)
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_6g2vh")
+texture = SubResource("AtlasTexture_wl2bi")
+fixed_fps = 60
+
+[connection signal="timeout" from="GrabArea/DisableGrabTimer" to="." method="_on_disable_grab_timer_timeout"]

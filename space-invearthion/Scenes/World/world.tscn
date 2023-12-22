@@ -283,3 +283,5 @@ position = Vector2(680, 608)
 
 [node name="meteor5" parent="Meteors" instance=ExtResource("8_2naeu")]
 position = Vector2(777, 659)
+
+[node name="Planets" type="Node2D" parent="."]

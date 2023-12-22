@@ -1,7 +1,7 @@
 extends Node2D
 
-var gravity_force = 10 # Сила притяжения грави-пушки
-var push_force = 300 # Сила отталкивания грави-пушки
+var gravity_force = 15 # Сила притяжения грави-пушки
+var push_force = 600 # Сила отталкивания грави-пушки
 var grab_range = 300 # Диапазон действия грави-пушки
 var grabbed_meteor = null # Метеорит, захваченный грави-пушкой
 
@@ -23,6 +23,8 @@ func grab_meteor():
 
     if raycast.is_colliding() and raycast.get_collider().is_in_group("meteor"):
         grabbed_meteor = raycast.get_collider()
+    else:
+        grabbed_meteor = null
 
     if grabbed_meteor != null:
         var direction_to_meteor = (grabbed_meteor.global_position - global_position).normalized()

@@ -10,41 +10,12 @@ const JUMP_VELOCITY = -400.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 #var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-#
-#
-#var time = 0.0
-#var speed = 10
-#var radius = 50
-#
-#@onready var sprite = $AnimatedSprite2D
-
-#func _physics_process(delta):
-#	time += delta
-#	var angle = speed * time
-#	var rotation = Vector2(cos(angle), sin(angle))
-#	sprite.position = rotation * distance_from_center
-
-#func _physics_process(delta):
-#
-#
-#	# Get the input direction and handle the movement/deceleration.
-#	# As good practice, you should replace UI actions with custom gameplay actions.
-#	var a = 2 * asin(speed * delta / (2 * radius))
-#	rotation -= a
-#	move_and_collide(transform.x * speed * delta)
-#	#var direction = Input.get_axis("ui_left", "ui_right")
-#	#if direction:
-#	#	velocity.x = direction * SPEED
-#	#else:
-#	#	velocity.x = move_toward(velocity.x, 0, SPEED)
-#
-#	#move_and_slide()
 
 @onready var ap = $AnimationPlayer
 @onready var sprite = $Sprite2D
 @onready var gravity_gun = $Gravity_gun
 @onready var viewport_size = Vector2(get_tree().root.content_scale_size)
-@onready var center = viewport_size / 2 # Координаты центра окружности
+@onready var center = viewport_size / 2 + Vector2(0, 5) # Координаты центра окружности
 @onready var radius = viewport_size.y / 2 - 20 # Радиус окружности
 var speed = 450 # Скорость передвижения
 var acceleration = 2700 # Ускорение
@@ -76,10 +47,6 @@ func _physics_process(delta):
 
     rotation = new_angle + PI * 1.5
     
-    # animations
-    if direction != 0:
-        sprite.flip_h = direction == 1
-        
     update_animations(direction)
 
 func update_animations(direction):
@@ -87,5 +54,7 @@ func update_animations(direction):
         ap.play("idle")
     else:
         ap.play("run")
+    if direction != 0:
+        sprite.flip_h = direction == 1
         
     

@@ -1,11 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://6vkcw3wcxelk"]
+[gd_scene load_steps=4 format=3 uid="uid://6vkcw3wcxelk"]
 
 [ext_resource type="Texture2D" uid="uid://b4lvhiwpkobun" path="res://Assets/Sprites/meteor.png" id="1_wjrl7"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gj1mw"]
+bounce = 0.4
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0h2er"]
 radius = 26.0192
 
 [node name="meteor" type="RigidBody2D" groups=["meteor"]]
+collision_layer = 8
+collision_mask = 15
+physics_material_override = SubResource("PhysicsMaterial_gj1mw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(3, 3)
