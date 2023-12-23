@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b7cbalup84k6r"]
+[gd_scene load_steps=40 format=3 uid="uid://b7cbalup84k6r"]
 
 [ext_resource type="Script" path="res://Scenes/World/world.gd" id="1_4hllu"]
 [ext_resource type="PackedScene" uid="uid://c1iei1jlrvrpd" path="res://Scenes/Player/player.tscn" id="1_rqnjn"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://c5xqqripgynpd" path="res://Assets/Sprites/trees.png" id="5_ro8h3"]
 [ext_resource type="Texture2D" uid="uid://cx0nfv1gfbd13" path="res://Assets/Sprites/sun.png" id="7_f3rfj"]
 [ext_resource type="PackedScene" uid="uid://cha7c1cnmue4h" path="res://Scenes/Objects/big_rock.tscn" id="8_onlrh"]
-[ext_resource type="PackedScene" uid="uid://blv1mik8l0rcg" path="res://Scenes/Objects/medium_rock.tscn" id="9_th5hh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ql5n"]
 atlas = ExtResource("7_f3rfj")
@@ -273,14 +272,11 @@ collision_mask = 0
 
 [node name="BigRock" parent="Meteors" instance=ExtResource("8_onlrh")]
 position = Vector2(672, 624)
-destructible_piece_scene = ExtResource("9_th5hh")
 
 [node name="BigRock2" parent="Meteors" instance=ExtResource("8_onlrh")]
 position = Vector2(672, 624)
-destructible_piece_scene = ExtResource("9_th5hh")
 
 [node name="BigRock3" parent="Meteors" instance=ExtResource("8_onlrh")]
 position = Vector2(672, 624)
-destructible_piece_scene = ExtResource("9_th5hh")
 
 [node name="Planets" type="Node2D" parent="."]

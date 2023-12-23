@@ -6,7 +6,7 @@
 [node name="small_rock" type="RigidBody2D" groups=["CanDestructObjects", "Grabbable"]]
 collision_layer = 8
 collision_mask = 15
-max_contacts_reported = 5
+max_contacts_reported = 2
 contact_monitor = true
 script = ExtResource("1_c7pk1")
 

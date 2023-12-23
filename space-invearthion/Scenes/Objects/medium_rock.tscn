@@ -7,7 +7,7 @@
 collision_layer = 8
 collision_mask = 15
 mass = 5.0
-max_contacts_reported = 5
+max_contacts_reported = 3
 contact_monitor = true
 script = ExtResource("1_x85kb")
 
