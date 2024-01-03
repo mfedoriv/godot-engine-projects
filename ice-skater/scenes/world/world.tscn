@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpmwqskr818b7"]
+
+[ext_resource type="Script" path="res://scenes/world/world.gd" id="1_3lh41"]
+[ext_resource type="PackedScene" uid="uid://ca8i3a52c1wb5" path="res://scenes/player/player.tscn" id="1_wd11f"]
+[ext_resource type="Texture2D" uid="uid://btbj81ixpju8p" path="res://assets/art/world/ice-1.jpg" id="2_bgeqd"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_3lh41")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.521569)
+offset_left = -1145.0
+offset_top = -16727.0
+offset_right = 1290.0
+offset_bottom = -7541.0
+scale = Vector2(2, 2)
+texture = ExtResource("2_bgeqd")
+stretch_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("1_wd11f")]
+position = Vector2(910, 689)
+metadata/_edit_group_ = true
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+drag_vertical_offset = -1.0
+drag_top_margin = 0.0
+drag_bottom_margin = 0.4

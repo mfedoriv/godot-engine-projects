@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://ca8i3a52c1wb5"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_h6uqm"]
+[ext_resource type="Texture2D" uid="uid://bdt5cs37vc5rn" path="res://icon.svg" id="1_un0r1"]
+[ext_resource type="PackedScene" uid="uid://r0rfb03yxfo7" path="res://scenes/ui/push_multiplier_updater.tscn" id="3_klra2"]
+[ext_resource type="Script" path="res://addons/trail_2d/trail_2d.gd" id="3_ybj3v"]
+
+[sub_resource type="Curve" id="Curve_xw8sy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_udbki"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_by5tf"]
+radius = 31.0
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_h6uqm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_un0r1")
+
+[node name="Trail2D" type="Line2D" parent="."]
+width = 50.0
+width_curve = SubResource("Curve_xw8sy")
+gradient = SubResource("Gradient_udbki")
+antialiased = true
+script = ExtResource("3_ybj3v")
+length = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_by5tf")
+
+[node name="PushMultiplierUpdater" parent="." instance=ExtResource("3_klra2")]
+offset_left = -56.0
+offset_top = -30.0
+offset_right = -56.0
+offset_bottom = -30.0
+scale = Vector2(0.6, 0.6)
+
+[node name="PushTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="PushCooldownTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
