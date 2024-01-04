@@ -57,7 +57,7 @@ func handle_moving(direction, delta, turn_force=TURN_FORCE):
 func apply_friction(delta):
 	if is_pushing:
 		return
-	velocity.x = move_toward(velocity.x, 0, TURN_FORCE * FRICTION * delta)
+	velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 	velocity.y = move_toward(velocity.y, 0, FRICTION * delta)
 
 func handle_turning(direction):

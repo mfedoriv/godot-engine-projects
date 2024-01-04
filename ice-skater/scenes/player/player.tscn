@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ca8i3a52c1wb5"]
+[gd_scene load_steps=9 format=3 uid="uid://ca8i3a52c1wb5"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_h6uqm"]
 [ext_resource type="Texture2D" uid="uid://bdt5cs37vc5rn" path="res://icon.svg" id="1_un0r1"]
+[ext_resource type="PackedScene" uid="uid://bctxd8dv7jxeu" path="res://scenes/effects/skate_trail_spawner.tscn" id="2_aoopa"]
 [ext_resource type="PackedScene" uid="uid://r0rfb03yxfo7" path="res://scenes/ui/push_multiplier_updater.tscn" id="3_klra2"]
 [ext_resource type="Script" path="res://addons/trail_2d/trail_2d.gd" id="3_ybj3v"]
 
@@ -18,6 +19,8 @@ radius = 31.0
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_h6uqm")
+
+[node name="SkateTrailSpawner" parent="." instance=ExtResource("2_aoopa")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1

@@ -1,6 +1,6 @@
 extends Control
 
-const UPDATE_VALUE = 6
+const STEP_MULTIPLIER = 6
 
 @onready var progress_bar: ProgressBar = $ProgressBar
 
@@ -25,7 +25,7 @@ func update_push(delta):
 	# Увеличиваем значение шага приращения в зависимости от текущего значения Progress Bar
 	var step = lerp(10, 100, progress_bar.value / progress_bar.max_value)
 	if Input.is_action_pressed("push"):
-		progress_bar.value += UPDATE_VALUE * step * value_direction * delta
+		progress_bar.value += STEP_MULTIPLIER * step * value_direction * delta
 	else:
 		progress_bar.value = 0
 

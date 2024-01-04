@@ -23,6 +23,8 @@ metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 process_callback = 0
+limit_left = -1000
+limit_right = 3000
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
 drag_vertical_offset = -1.0

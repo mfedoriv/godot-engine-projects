@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bctxd8dv7jxeu"]
+
+[ext_resource type="Script" path="res://scenes/effects/skate_trail_spawner.gd" id="1_bjlj7"]
+
+[node name="SkateTrailSpawner" type="Line2D"]
+script = ExtResource("1_bjlj7")
