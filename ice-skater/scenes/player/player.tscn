@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ca8i3a52c1wb5"]
+[gd_scene load_steps=10 format=3 uid="uid://ca8i3a52c1wb5"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_h6uqm"]
 [ext_resource type="Texture2D" uid="uid://bdt5cs37vc5rn" path="res://icon.svg" id="1_un0r1"]
-[ext_resource type="PackedScene" uid="uid://bctxd8dv7jxeu" path="res://scenes/effects/skate_trail_spawner.tscn" id="2_aoopa"]
+[ext_resource type="PackedScene" uid="uid://bctxd8dv7jxeu" path="res://scenes/effects/skate_trail.tscn" id="2_aoopa"]
 [ext_resource type="PackedScene" uid="uid://r0rfb03yxfo7" path="res://scenes/ui/push_multiplier_updater.tscn" id="3_klra2"]
 [ext_resource type="Script" path="res://addons/trail_2d/trail_2d.gd" id="3_ybj3v"]
+[ext_resource type="Script" path="res://components/spawner_component.gd" id="5_w16cx"]
 
 [sub_resource type="Curve" id="Curve_xw8sy"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -19,8 +20,6 @@ radius = 31.0
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_h6uqm")
-
-[node name="SkateTrailSpawner" parent="." instance=ExtResource("2_aoopa")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
@@ -52,3 +51,13 @@ one_shot = true
 [node name="PushCooldownTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="TrailSpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("5_w16cx")
+scene = ExtResource("2_aoopa")
+
+[node name="LeftFoot" type="Marker2D" parent="."]
+position = Vector2(-20, 0)
+
+[node name="RightFoot" type="Marker2D" parent="."]
+position = Vector2(20, 0)
