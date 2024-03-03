@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://d18k3kadcopvd"]
+
+[ext_resource type="Texture2D" uid="uid://dj1v48jbgu1ca" path="res://Assets/Sprites/planet_medium.png" id="1_1ia1b"]
+[ext_resource type="Script" path="res://Scenes/Objects/planet.gd" id="1_4n0w2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v1kgq"]
+radius = 74.027
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8jdfu"]
+radius = 176.071
+
+[node name="Planet" type="Node2D"]
+script = ExtResource("1_4n0w2")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_1ia1b")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+shape = SubResource("CircleShape2D_v1kgq")
+
+[node name="Area2D" type="Area2D" parent="."]
+gravity_space_override = 1
+gravity_point = true
+gravity = 350.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_8jdfu")
+debug_color = Color(0.854902, 0.290196, 0.580392, 0.419608)

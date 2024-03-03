@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bougesmykulqv"]
+
+[ext_resource type="Texture2D" uid="uid://chcvr4jhpv5qu" path="res://assets/world/TX Props.png" id="1_kwyfb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5jki6"]
+radius = 37.0
+height = 98.0
+
+[node name="ExitPortal" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kwyfb")
+region_enabled = true
+region_rect = Rect2(352.517, 265.08, 95.0386, 75.9037)
+
+[node name="ExitArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitArea2D"]
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_5jki6")

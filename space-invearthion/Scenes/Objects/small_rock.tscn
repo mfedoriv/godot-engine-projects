@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cewf68v40pb5l"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/small_rock.gd" id="1_c7pk1"]
+[ext_resource type="Texture2D" uid="uid://c26m4p365am52" path="res://Assets/Sprites/rocks.png" id="1_gqj7r"]
+
+[node name="small_rock" type="RigidBody2D" groups=["CanDestructObjects", "Grabbable"]]
+collision_layer = 8
+collision_mask = 15
+max_contacts_reported = 2
+contact_monitor = true
+script = ExtResource("1_c7pk1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_gqj7r")
+hframes = 5
+frame = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-7, -21, 4, -21, 14, -5, 24, 3, 15, 15, 4, 21, -1, 21, -8, 15, -16, 15, -21, 11, -22, -1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,13 +1,17 @@
 extends CharacterBody2D
 
-const ACCELERATION = 1200
+const ACCELERATION = 800
 const MAX_SPEED = 100
-const FRICTION = 1400
+const FRICTION = 1200
+
+const CLOSED_EYE_ATTRACT_RADIUS = 10
+const OPENED_EYE_ATTRACT_RADIUS = 80
 
 @onready var player_animation_player = $PlayerAnimationPlayer
 @onready var eye_animation_player = $EyeAnimationPlayer
 @onready var light_casting_shadows = $LightCastingShadows
 @onready var light_lighting_walls = $LightLightingWalls
+@onready var enemy_attract_collision_shape = $EnemyAttractArea/EnemyAttractCollisionShape2D
 
 
 func _ready():
@@ -53,6 +57,13 @@ func update_eye_animations(input_axis):
 func handle_eye_switch():
 	if Input.is_action_just_pressed("switch_eye"):
 		Globals.is_eye_open = !Globals.is_eye_open
+	change_attract_collision_shape()
+
+func change_attract_collision_shape():
+	if Globals.is_eye_open:
+		enemy_attract_collision_shape.shape.radius = OPENED_EYE_ATTRACT_RADIUS
+	else:
+		enemy_attract_collision_shape.shape.radius = CLOSED_EYE_ATTRACT_RADIUS
 
 func light_switch(enabled):
 	light_casting_shadows.enabled = enabled

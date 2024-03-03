@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b7cbalup84k6r"]
+[gd_scene load_steps=40 format=3 uid="uid://b7cbalup84k6r"]
 
 [ext_resource type="Script" path="res://Scenes/World/world.gd" id="1_4hllu"]
 [ext_resource type="PackedScene" uid="uid://c1iei1jlrvrpd" path="res://Scenes/Player/player.tscn" id="1_rqnjn"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b0yaoud3hhd3d" path="res://Assets/Sprites/atmosphere.png" id="4_6xyn4"]
 [ext_resource type="Texture2D" uid="uid://c5xqqripgynpd" path="res://Assets/Sprites/trees.png" id="5_ro8h3"]
 [ext_resource type="Texture2D" uid="uid://cx0nfv1gfbd13" path="res://Assets/Sprites/sun.png" id="7_f3rfj"]
-[ext_resource type="PackedScene" uid="uid://6vkcw3wcxelk" path="res://Scenes/Objects/meteor.tscn" id="8_2naeu"]
+[ext_resource type="PackedScene" uid="uid://cha7c1cnmue4h" path="res://Scenes/Objects/big_rock.tscn" id="8_onlrh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ql5n"]
 atlas = ExtResource("7_f3rfj")
@@ -227,64 +227,56 @@ animations = [{
 "speed": 9.0
 }]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jcgvh"]
-resource_name = "earth"
-bounce = 0.6
-
 [node name="World" type="Node2D"]
 script = ExtResource("1_4hllu")
 
-[node name="Sky" type="Sprite2D" parent="."]
-position = Vector2(320, 180)
+[node name="Background" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Sky" type="Sprite2D" parent="Background"]
+position = Vector2(960, 544)
+scale = Vector2(3, 3)
 texture = ExtResource("3_2db6n")
-metadata/_edit_lock_ = true
 
-[node name="Atmosphere" type="Sprite2D" parent="."]
-position = Vector2(320, 180)
+[node name="Atmosphere" type="Sprite2D" parent="Background"]
+position = Vector2(960, 544)
+scale = Vector2(3, 3)
 texture = ExtResource("4_6xyn4")
-metadata/_edit_lock_ = true
 
-[node name="Trees" type="Sprite2D" parent="."]
-position = Vector2(320, 180)
+[node name="Trees" type="Sprite2D" parent="Background"]
+position = Vector2(960, 544)
+scale = Vector2(3, 3)
 texture = ExtResource("5_ro8h3")
-metadata/_edit_lock_ = true
 
-[node name="Land" type="Sprite2D" parent="."]
-position = Vector2(320, 180)
+[node name="Land" type="Sprite2D" parent="Background"]
+position = Vector2(960, 544)
+scale = Vector2(3, 3)
 texture = ExtResource("2_ql5k4")
-metadata/_edit_lock_ = true
 
-[node name="Sun" type="AnimatedSprite2D" parent="."]
-position = Vector2(320, 180)
+[node name="Sun" type="AnimatedSprite2D" parent="Background"]
+position = Vector2(960, 544)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_5ccw2")
 animation = &"move"
-metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_rqnjn")]
-position = Vector2(217, 126)
+position = Vector2(832, 744)
 
-[node name="Area2D" type="StaticBody2D" parent="."]
-position = Vector2(320, 180)
-physics_material_override = SubResource("PhysicsMaterial_jcgvh")
-metadata/_edit_lock_ = true
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["CanDestructObjects"]]
+collision_mask = 0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-polygon = PackedVector2Array(46, -170, 88, -152, 115, -131, 134, -112, 148, -92, 160, -70, 168, -49, 172, -29, 174, -6, 173, 19, 169, 45, 160, 68, 150, 89, 136, 108, 120, 126, 102, 140, 85, 152, 65, 161, 45, 168, 24, 172, 5, 174, -13, 174, -40, 170, -65, 161, -90, 149, -111, 134, -129, 117, -145, 96, -158, 73, -168, 47, -173, 23, -174, 1, -173, -23, -168, -49, -159, -71, -150, -89, -138, -106, -125, -122, -112, -134, -91, -149, -75, -157, -55, -165, -29, -172, -9, -174, 13, -174, 13, -180, -320, -180, -320, 179, 320, 180, 320, -181, 13, -180, 13, -177, 13, -174)
-metadata/_edit_lock_ = true
+[node name="EarthCollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 
 [node name="Meteors" type="Node2D" parent="."]
 
-[node name="meteor" parent="Meteors" instance=ExtResource("8_2naeu")]
-position = Vector2(244, 320)
+[node name="BigRock" parent="Meteors" instance=ExtResource("8_onlrh")]
+position = Vector2(672, 624)
 
-[node name="meteor2" parent="Meteors" instance=ExtResource("8_2naeu")]
-position = Vector2(285, 336)
+[node name="BigRock2" parent="Meteors" instance=ExtResource("8_onlrh")]
+position = Vector2(672, 624)
 
-[node name="meteor3" parent="Meteors" instance=ExtResource("8_2naeu")]
-position = Vector2(317, 326)
+[node name="BigRock3" parent="Meteors" instance=ExtResource("8_onlrh")]
+position = Vector2(672, 624)
 
-[node name="meteor4" parent="Meteors" instance=ExtResource("8_2naeu")]
-position = Vector2(247, 284)
-
-[node name="meteor5" parent="Meteors" instance=ExtResource("8_2naeu")]
-position = Vector2(341, 311)
+[node name="Planets" type="Node2D" parent="."]
