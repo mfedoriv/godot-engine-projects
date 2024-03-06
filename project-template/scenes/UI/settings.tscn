@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://c3l1fev5q61r7"]
+
+[node name="Settings" type="Node2D"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Settings" type="TabContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Video" type="TabBar" parent="UI/Settings"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Settings/Video"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Settings/Video/HBoxContainer"]
+layout_mode = 2
+
+[node name="FullScreen" type="Label" parent="UI/Settings/Video/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="Borderless" type="Label" parent="UI/Settings/Video/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Borderless"
+
+[node name="V-Sync" type="Label" parent="UI/Settings/Video/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "V-Sync"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/Settings/Video/HBoxContainer"]
+layout_mode = 2
+
+[node name="FullScreen" type="CheckBox" parent="UI/Settings/Video/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Borderless" type="CheckBox" parent="UI/Settings/Video/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="V-Sync" type="OptionButton" parent="UI/Settings/Video/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Audio" type="TabBar" parent="UI/Settings"]
+visible = false
+layout_mode = 2
+
+[node name="Controls" type="TabBar" parent="UI/Settings"]
+visible = false
+layout_mode = 2
