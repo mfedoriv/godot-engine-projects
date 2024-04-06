@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr4sbxlhltu7r"]
+
+[ext_resource type="Texture2D" uid="uid://dqdq0oysm8hl4" path="res://assets/art/tile_0024.png" id="1_bbfcy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_at87q"]
+radius = 6.0
+height = 18.0
+
+[node name="ChainSegment" type="RigidBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_at87q")
+
+[node name="Tile0024" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_bbfcy")

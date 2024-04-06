@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2vw4acmycxt1"]
+
+[ext_resource type="Script" path="res://scenes/claw/manipulator.gd" id="1_gxoiq"]
+[ext_resource type="Texture2D" uid="uid://b267840hobb0f" path="res://assets/art/tile_0084.png" id="1_hyw5p"]
+[ext_resource type="Texture2D" uid="uid://c4wllfhvukrng" path="res://assets/art/tile_0086.png" id="2_oa3st"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_inlg8"]
+radius = 9.0
+height = 36.0
+
+[node name="Manipulator" type="CharacterBody2D"]
+script = ExtResource("1_gxoiq")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Tile0084" type="Sprite2D" parent="Visual"]
+position = Vector2(-9, 0)
+texture = ExtResource("1_hyw5p")
+
+[node name="Tile0086" type="Sprite2D" parent="Visual"]
+position = Vector2(9, 0)
+texture = ExtResource("2_oa3st")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_inlg8")

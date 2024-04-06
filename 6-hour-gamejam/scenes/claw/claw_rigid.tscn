@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwbfik5a67ddl"]
+
+[ext_resource type="Texture2D" uid="uid://d35ehqblcics1" path="res://assets/art/tile_0099.png" id="1_kij1w"]
+[ext_resource type="Script" path="res://scenes/claw/claw_rigid.gd" id="1_mvapr"]
+[ext_resource type="Texture2D" uid="uid://cubbiiphupe2e" path="res://assets/art/claw.png" id="2_u6w2h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2yfkx"]
+radius = 7.0
+
+[node name="ClawRigid" type="RigidBody2D"]
+script = ExtResource("1_mvapr")
+
+[node name="ClawLeftSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_u6w2h")
+offset = Vector2(-13, 17)
+
+[node name="ClawRightSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_u6w2h")
+offset = Vector2(13, 17)
+flip_h = true
+
+[node name="Tile0099" type="Sprite2D" parent="."]
+texture = ExtResource("1_kij1w")
+
+[node name="ClawLeftCollision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-9, -3, -24, 12, -24, 34, -20, 38, -15, 38, -15, 36, -17, 32, -17, 13, -9, 3)
+
+[node name="ClawRightCollision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(9, -3, 9, 3, 17, 14, 17, 32, 15, 36, 15, 38, 20, 38, 24, 33, 24, 13)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2yfkx")
