@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqyybirydd783"]
+
+[ext_resource type="Texture2D" uid="uid://bv1ll8ysjoyoo" path="res://assets/art/food/tile_0101.png" id="1_dawen"]
+[ext_resource type="Texture2D" uid="uid://bl8mnc62l5f53" path="res://assets/art/food/tile_0085.png" id="2_76x77"]
+
+[node name="Bottle" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 7
+
+[node name="Tile0101" type="Sprite2D" parent="."]
+position = Vector2(0, 9)
+texture = ExtResource("1_dawen")
+
+[node name="Tile0085" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("2_76x77")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-9, -2, -9, 17, -6, 18, 6, 18, 9, 17, 9, -2, 5, -4, 5, -6, 6, -6, 6, -12, 4, -18, -4, -18, -6, -12, -6, -6, -5, -6, -5, -4)

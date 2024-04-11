@@ -6,7 +6,6 @@ extends RigidBody2D
 @onready var claw_right_collision: CollisionPolygon2D = $ClawRightCollision
 
 
-
 var is_open = true
 
 var tween
@@ -15,7 +14,7 @@ var tween
 func _physics_process(delta):
 	if Input.is_action_just_pressed("claw"):
 		if is_open:
-			close_claw(20, 0.5)
+			close_claw(12, 0.5)
 			is_open = false
 		else:
 			open_claw(20, 0.5)

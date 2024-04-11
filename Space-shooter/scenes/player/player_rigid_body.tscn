@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://beoec4xw2bn4"]
+
+[ext_resource type="Texture2D" uid="uid://w1e5c1b4nhir" path="res://assets/art/ship_L.png" id="1_21hwp"]
+[ext_resource type="Script" path="res://scenes/player/player_rigid_body.gd" id="1_y40kl"]
+[ext_resource type="PackedScene" uid="uid://cbbxvcwh031st" path="res://scenes/player/bullet/bullet.tscn" id="2_p1js4"]
+
+[sub_resource type="Curve" id="Curve_1iyou"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_geya1"]
+offsets = PackedFloat32Array(0, 0.8)
+colors = PackedColorArray(1, 1, 0, 1, 0.835294, 0, 0, 1)
+
+[node name="PlayerRigidBody" type="RigidBody2D"]
+linear_damp = 1.0
+angular_damp = 5.0
+script = ExtResource("1_y40kl")
+bullet_scene = ExtResource("2_p1js4")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+rotation = 1.5708
+polygon = PackedVector2Array(-16, 24, -24, 16, -8, 0, 0, -24, 8, 0, 24, 16, 16, 24, 8, 24, 8, 16, -8, 16, -8, 24)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_21hwp")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(24, 0)
+
+[node name="GunCooldownTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="EngineFire" type="CPUParticles2D" parent="."]
+show_behind_parent = true
+position = Vector2(-12, 0)
+rotation = 3.14159
+emitting = false
+amount = 25
+lifetime = 0.15
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1, 5)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_1iyou")
+color_ramp = SubResource("Gradient_geya1")

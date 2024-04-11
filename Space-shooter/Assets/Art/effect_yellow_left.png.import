@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwo78xx3sv4m4"
-path="res://.godot/imported/effect_yellow_left.png-624f451f6cbe64f67e72ff1b04a8e607.ctex"
+path="res://.godot/imported/effect_yellow_left.png-0bc64fd336cbab53d25c5a05adb4ce53.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/effect_yellow_left.png"
-dest_files=["res://.godot/imported/effect_yellow_left.png-624f451f6cbe64f67e72ff1b04a8e607.ctex"]
+source_file="res://assets/art/effect_yellow_left.png"
+dest_files=["res://.godot/imported/effect_yellow_left.png-0bc64fd336cbab53d25c5a05adb4ce53.ctex"]
 
 [params]
 

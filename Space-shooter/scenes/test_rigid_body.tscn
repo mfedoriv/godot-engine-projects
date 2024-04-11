@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2a5ia6suc1dn"]
+
+[ext_resource type="Script" path="res://scenes/test_rigid_body.gd" id="1_07v0b"]
+[ext_resource type="Texture2D" uid="uid://bcr0xh88wgkfm" path="res://assets/art/enemy_D.png" id="1_gibb1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xxafx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lt1ql"]
+radius = 24.0
+
+[node name="TestRigidBody" type="RigidBody2D"]
+position = Vector2(232, 176)
+physics_material_override = SubResource("PhysicsMaterial_xxafx")
+linear_damp = 1.0
+angular_damp = 5.0
+script = ExtResource("1_07v0b")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+rotation = 1.5708
+texture = ExtResource("1_gibb1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lt1ql")

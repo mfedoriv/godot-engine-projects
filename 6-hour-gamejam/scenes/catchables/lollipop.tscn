@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg8181ykl25s6"]
+
+[ext_resource type="Texture2D" uid="uid://kqft0bln55o0" path="res://assets/art/food/tile_0008.png" id="1_5npm8"]
+[ext_resource type="Texture2D" uid="uid://nb3heaj2qt8y" path="res://assets/art/food/tile_0024.png" id="2_r7ybu"]
+
+[node name="Lollipop" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 7
+
+[node name="Tile0008" type="Sprite2D" parent="."]
+texture = ExtResource("1_5npm8")
+
+[node name="Tile0024" type="Sprite2D" parent="."]
+position = Vector2(0, 18)
+texture = ExtResource("2_r7ybu")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -9, -5, -8, -8, -5, -9, -2, -9, 2, -7, 6, -3, 8, -3, 27, 3, 27, 3, 8, 7, 6, 9, 2, 9, -2, 8, -5, 5, -8)

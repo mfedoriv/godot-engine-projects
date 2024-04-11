@@ -5,9 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://cubbiiphupe2e" path="res://assets/art/claw.png" id="2_u6w2h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2yfkx"]
-radius = 7.0
+radius = 9.0
 
 [node name="ClawRigid" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 3
+mass = 15.0
+gravity_scale = 0.8
+angular_damp = 50.0
 script = ExtResource("1_mvapr")
 
 [node name="ClawLeftSprite" type="Sprite2D" parent="."]

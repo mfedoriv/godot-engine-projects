@@ -9,6 +9,8 @@ radius = 9.0
 height = 36.0
 
 [node name="Manipulator" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_gxoiq")
 
 [node name="Visual" type="Node2D" parent="."]
